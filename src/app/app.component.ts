@@ -24,6 +24,12 @@ export class AppComponent {
     this.model.get('http://admin.lenvintage.com/wp-json/wp/v2/tags').subscribe(data => {
       this.tags = data;
     });
-    
+  }
+  openOverlay(element: string) {
+      document.getElementById(element).style.width = "100%";
+  }
+  
+  closeOverlay(element: string) {
+      document.getElementById(element).style.width = "0%";
   }
 }

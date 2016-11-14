@@ -6,17 +6,25 @@
             <!--routerLink="/category/{{ routerCategory.slug }}" routerLinkActive="active"-->
         </ul>
         <ul class="menu-mobile">
-            <a href="#!"><i class="fa fa-bars" aria-hidden="true"></i></a>
+            <a (click)="openOverlay('menuOverlay')"><i class="fa fa-bars" aria-hidden="true"></i></a>
         </ul>
         
         <ul class="nav-search">
             <li><a href="#!"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
             <li><a href="#!"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
             <li><a href="#!"><i class="fa fa-shopping-bag" aria-hidden="true"></i></a></li>
-            <li><a class="search-trigger" href="#!"><i class="fa fa-search" aria-hidden="true"></i></a></li>
+            <li><a class="search-trigger" href="#!" (click)="openOverlay('searchOverlay')"><i class="fa fa-search" aria-hidden="true"></i></a></li>
         </ul>
     </nav>
 </header>
+<div id="menuOverlay" class="overlay">
+  <a class="closebtn" (click)="closeOverlay('menuOverlay')">&times;</a>
+  <div class="overlay-content">
+    <a routerLink="/home" (click)="closeOverlay('menuOverlay')"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+    <a *ngFor="let routerCategory of categories" routerLink="/category/{{ routerCategory.slug }}" (click)="closeOverlay('menuOverlay')"><i class="fa {{ routerCategory.description }}" aria-hidden="true"></i> {{ routerCategory.name }}</a>
+  </div>
+</div>
+
 <div class="parallax">
     <div class="parallax-logo">
         <a routerLink="/home"><img src="../assets/images/logo.png" alt="logo"></a>

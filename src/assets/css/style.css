@@ -466,6 +466,51 @@ footer .back-to-top a:hover, nav a:active {
     background-color: #00838f;
 }
 /*
+* overlay
+*/
+.overlay {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 6969;
+    top: 0;
+    left: 0;
+    background-color: rgb(255,255,255);
+    background-color: rgba(255,255,255, 0.8);
+    overflow-x: hidden;
+    transition: 0.5s;
+}
+
+.overlay-content {
+    position: relative;
+    top: 15%;
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.overlay a {
+    padding: 10px;
+    text-decoration: none;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.3rem;
+    color: #00bcd4;
+    display: block;
+    transition: 0.3s;
+}
+
+.overlay a:hover, .overlay a:focus {
+    font-size: 2rem;
+    color: #006064;
+}
+
+.overlay .closebtn {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 1.5rem;
+}
+/*
 * animation
 */
 @keyframes top-to-content {
@@ -587,4 +632,11 @@ footer .back-to-top a:hover, nav a:active {
     .card .share-card a {
         margin-left: 5px;
     }
+    .overlay-content {
+    position: relative;
+    top: 10%;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+}
 }
