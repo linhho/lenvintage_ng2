@@ -1,0 +1,30 @@
+<div class="card">
+    <div class="thumb-card">
+        <a [routerLink]="['/post', post.id, post.slug]"><img [src]="post.better_featured_image.source_url" [alt]="post.title.rendered"></a>
+    </div>
+    <div class="info-card">
+        <div class="info-card_left"></div>
+        <div class="info-card_right"></div>
+        <div class="category-card">
+            <a href="#"><i class="fa fa-book" aria-hidden="true"></i></a>
+        </div>
+    </div>
+    <div class="content-card">
+        <div class="title-card">
+            <a [routerLink]="['/post', post.id, post.slug]">{{post.title.rendered}}</a>
+        </div>
+        <div class="postcontent-card">
+            <span [innerHTML]="post.content.rendered"></span>
+            <div class="bottom-card">
+                <div class="time">
+                    {{post.date | date:"dd/MM/yyyy"}} by <a [routerLink]="['/home']">Len</a>
+                </div>
+                <div class="share-card">
+                    <a href="#!"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    <a href="#!"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                    <a href="#!"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

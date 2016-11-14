@@ -1,0 +1,104 @@
+<header>
+    <nav>
+        <ul class="nav-menu">
+            <li><a routerLink="/home" routerLinkActive="is-active" ><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
+            <li *ngFor="let routerCategory of categories"><a routerLink="/category/{{ routerCategory.slug }}" routerLinkActive="is-active" ><i class="fa {{ routerCategory.description }}" aria-hidden="true"></i> {{ routerCategory.name }}</a></li>
+            <!--routerLink="/category/{{ routerCategory.slug }}" routerLinkActive="active"-->
+        </ul>
+        <ul class="menu-mobile">
+            <a href="#!"><i class="fa fa-bars" aria-hidden="true"></i></a>
+        </ul>
+        
+        <ul class="nav-search">
+            <li><a href="#!"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+            <li><a href="#!"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+            <li><a href="#!"><i class="fa fa-shopping-bag" aria-hidden="true"></i></a></li>
+            <li><a class="search-trigger" href="#!"><i class="fa fa-search" aria-hidden="true"></i></a></li>
+        </ul>
+    </nav>
+</header>
+<div class="parallax">
+    <div class="parallax-logo">
+        <a routerLink="/home"><img src="../assets/images/logo.png" alt="logo"></a>
+    </div>
+    <h1>Len Vintage</h1>
+    <div class="parallax-to-content">
+        <a href="#main">
+            <i class="fa fa-arrow-down" aria-hidden="true"></i>
+        </a>
+    </div>
+</div>
+<main id="main">
+        <div class="web-container">
+            <div class="about">
+<!--               About me-->
+                <img class="about-thumb" src="assets/images/avatar.jpg" alt="len">
+                <h1>LEN vintage</h1>
+                <span>Kẹo thì ngọt. Len thì rối. Nước khó nắm bắt... Nhưng tất cả rồi sẽ ổn thôi </span>
+            </div>
+            <div class="web-wrapper">
+<!--               Main content of website-->
+              <router-outlet></router-outlet>  
+            </div>
+            <div class="sidebar">
+<!--               Sidebar components-->
+                <!--latest posts-->
+                <h1>Latest posts</h1>
+                
+                <div class="sidebar-card">
+                    <div class="sidebar-card_thumb">
+                        <a href="#!"><img src="http://admin.lenvintage.com/wp-content/uploads/2016/11/10-4-2016-ke-dung-giay-300x212.jpg" alt="thumb 1"></a>
+                    </div>
+                    <div class="sidebar-card_info">
+                        <div class="sidebar-card_title">
+                            <a href="#!">“Đốn tim” bằng món quà dễ thương từ đá cuội</a>
+                        </div>
+                        <div class="sidebar-card_time">
+                            21/12/2016
+                        </div>
+                        <a class="view-more" href="#!"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+                <div class="sidebar-card">
+                    <div class="sidebar-card_thumb">
+                        <a href="#!"><img src="http://admin.lenvintage.com/wp-content/uploads/2016/11/10-4-2016-ke-dung-giay-300x212.jpg" alt="thumb 1"></a>
+                    </div>
+                    <div class="sidebar-card_info">
+                        <div class="sidebar-card_title">
+                            <a href="#!">“Đốn tim” bằng món quà dễ thương từ đá cuội</a>
+                        </div>
+                        <div class="sidebar-card_time">
+                            21/12/2016
+                        </div>
+                        <a class="view-more" href="#!"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+                <div class="sidebar-card">
+                    <div class="sidebar-card_thumb">
+                        <a href="#!"><img src="http://admin.lenvintage.com/wp-content/uploads/2016/11/10-4-2016-ke-dung-giay-300x212.jpg" alt="thumb 1"></a>
+                    </div>
+                    <div class="sidebar-card_info">
+                        <div class="sidebar-card_title">
+                            <a href="#!">“Đốn tim” bằng món quà dễ thương từ đá cuội</a>
+                        </div>
+                        <div class="sidebar-card_time">
+                            21/12/2016
+                        </div>
+                        <a class="view-more" href="#!"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+                <!--Tag cloud-->
+                <h1>Tag Cloud</h1>
+                <div class="sidebar-tags">
+                    <a *ngFor="let tag of tags" routerLink="/tag/{{tag.id}}/{{tag.slug}}">{{tag.name}}</a>
+                </div>
+            
+            </div>
+        </div>
+    </main>
+    
+
+<footer>
+    <div class="copyright">Develop by <a href="http://linhho.net">Linh Ho</a></div>
+    <div class="back-to-top"><a href="#main"><i class="fa fa-arrow-circle-up" aria-hidden="true"></i></a></div>
+</footer>
