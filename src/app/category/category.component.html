@@ -1,37 +1,39 @@
-<div class="card" *ngFor="let post of posts">
-    <div class="thumb-card">
-        <a [routerLink]="['/post', post.id, post.slug]"><img src="{{post.better_featured_image.source_url}}" alt="{{post.title.rendered}}"></a>
-    </div>
-    <div class="info-card">
-        <div class="info-card_left"></div>
-        <div class="info-card_right"></div>
-        <div class="category-card">
-            <a href="#"><i class="fa fa-book" aria-hidden="true"></i></a>
+<div class="card" *ngFor="let post of posts; let i = index">
+    <template [ngIf]="i < postNum">
+        <div class="thumb-card">
+            <a [routerLink]="['/post', post.id, post.slug]"><img src="{{post.better_featured_image.source_url}}" alt="{{post.title.rendered}}"></a>
         </div>
-    </div>
-    <div class="content-card">
-        <div class="title-card">
-            <a [routerLink]="['/post', post.id, post.slug]">{{post.title.rendered}}</a>
-        </div>
-        <div class="desc-card">
-            <span [innerHTML]="post.excerpt.rendered"></span>
-            <div class="continue-reading">
-                <a [routerLink]="['/post', post.id, post.slug]">CONTINUE READING</a>
-            </div>
-            <div class="bottom-card">
-                <div class="time">
-                    {{post.date | date:"dd/MM/yyyy"}} by <a [routerLink]="['/home']">Len</a>
-                </div>
-                <div class="share-card">
-                    <a href="#!"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                    <a href="#!"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
-                    <a href="#!"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                </div>
+        <div class="info-card">
+            <div class="info-card_left"></div>
+            <div class="info-card_right"></div>
+            <div class="category-card">
+                <a href="#"><i class="fa fa-book" aria-hidden="true"></i></a>
             </div>
         </div>
-    </div>
+        <div class="content-card">
+            <div class="title-card">
+                <a [routerLink]="['/post', post.id, post.slug]">{{post.title.rendered}}</a>
+            </div>
+            <div class="desc-card">
+                <span [innerHTML]="post.excerpt.rendered"></span>
+                <div class="continue-reading">
+                    <a [routerLink]="['/post', post.id, post.slug]">CONTINUE READING</a>
+                </div>
+                <div class="bottom-card">
+                    <div class="time">
+                        {{post.date | date:"dd/MM/yyyy"}} by <a [routerLink]="['/home']">Len</a>
+                    </div>
+                    <div class="share-card">
+                        <a href="#!"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a href="#!"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                        <a href="#!"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
 </div>
 
-<div class="load-more">
-    <a href="#!">Load more</a>
+<div class="load-more" *ngIf="postNum <= postsLength">
+    <a (click)="postLoadMore()">Load more</a>
 </div>

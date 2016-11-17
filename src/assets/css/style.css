@@ -402,12 +402,18 @@ footer .back-to-top a:hover, nav a:active {
     width: 100px;
     height: 60px;
     border: 2px solid #00bcd4;
+    color: #00bcd4;
     border-radius: 50%;
     margin-bottom: 10px;
-    vertical-align: middle;
     padding-top: 40px;
     font-family: 'Quicksand', sans-serif;
     font-size: 0.9rem
+}
+
+.load-more a:hover, .load-more a:active {
+    color: #fff;
+    background-color: #00bcd4;
+    
 }
 /**/
 /*sidebar card style*/
@@ -439,16 +445,18 @@ footer .back-to-top a:hover, nav a:active {
 }
 .sidebar-card .sidebar-card_title a {
     color: #000;
-    font-family: 'Pattaya', sans-serif
+    font-family: 'Pattaya', sans-serif;
+    font-size: 1rem
 }
 .sidebar-card .sidebar-card_time {
-    float: left;
+    text-align: right;
     font-family: 'Quicksand', sans-serif;
-    font-size: 1rem;
-    margin-left: 10px
+    font-size: 0.8rem;
+    margin: 20px 10px;
 }
 .sidebar-card .view-more {
-    float: right;
+    text-align: right;
+    margin-top: 20px;
     margin-right: 10px
 }
 .sidebar-tags a {

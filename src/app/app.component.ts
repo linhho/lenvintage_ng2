@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
 import { ModelService } from './shared/api.service';
+import { Category } from './model/category.model';
+import { Post } from './model/post.model';
 
 @Component({
   selector: 'len-app',
   templateUrl: '/app.component.html'
 })
 export class AppComponent {
-  categories = [];
+  categories:Category[] = [];
+   randomPosts:Post[] = [];
   tags = [];
   constructor(public model: ModelService) {
 
@@ -23,6 +26,10 @@ export class AppComponent {
     //tags
     this.model.get('http://admin.lenvintage.com/wp-json/wp/v2/tags').subscribe(data => {
       this.tags = data;
+    });
+    //random posts
+    this.model.get('http://admin.lenvintage.com/wp-json/wp/v2/posts/?filter[orderby]=rand&per_page=5').subscribe(data => {
+      this.randomPosts = data;
     });
   }
   openOverlay(element: string) {
