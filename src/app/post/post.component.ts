@@ -10,7 +10,6 @@ import { Post } from '../model/post.model';
 
 export class PostComponent{
   sub: any;
-  post = {};
   image: string;
   id: number;
   title: string;
@@ -28,15 +27,12 @@ export class PostComponent{
   universalInit() {
     this.sub = this._route.params.subscribe(params => {
         this.model.get('http://admin.lenvintage.com/wp-json/wp/v2/posts/'+params['id']).subscribe(data => {
-            this.post = data;
             this.id = data.id;
             this.image = data.better_featured_image.source_url;
             this.title = data.title.rendered;
             this.slug = data.slug;
             this.date = data.date;
             this.content = data.content.rendered;
-            console.log(this.post);
-            console.log(this.image);
         });
     });
   }

@@ -51993,22 +51993,18 @@ var PostComponent = (function () {
         this._route = _route;
         this._router = _router;
         this.model = model;
-        this.post = {};
         this.universalInit();
     }
     PostComponent.prototype.universalInit = function () {
         var _this = this;
         this.sub = this._route.params.subscribe(function (params) {
             _this.model.get('http://admin.lenvintage.com/wp-json/wp/v2/posts/' + params['id']).subscribe(function (data) {
-                _this.post = data;
                 _this.id = data.id;
                 _this.image = data.better_featured_image.source_url;
                 _this.title = data.title.rendered;
                 _this.slug = data.slug;
                 _this.date = data.date;
                 _this.content = data.content.rendered;
-                console.log(_this.post);
-                console.log(_this.image);
             });
         });
     };
