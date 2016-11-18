@@ -9,18 +9,33 @@
         </ul>
         
         <ul class="nav-search">
-            <li><a href="#!"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-            <li><a href="#!"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-            <li><a href="#!"><i class="fa fa-shopping-bag" aria-hidden="true"></i></a></li>
-            <li><a class="search-trigger" href="#!" (click)="openOverlay('searchOverlay')"><i class="fa fa-search" aria-hidden="true"></i></a></li>
+            <li><a href="http://goo.gl/v9Rso8"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+            <li><a href="goo.gl/Md0yud"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+            <li><a href="goo.gl/e7PosF"><i class="fa fa-shopping-bag" aria-hidden="true"></i></a></li>
+            <li><a class="search-trigger" (click)="openOverlay('searchOverlay')"><i class="fa fa-search" aria-hidden="true"></i></a></li>
         </ul>
     </nav>
 </header>
+<!--menu overlay-->
 <div id="menuOverlay" class="overlay">
   <a class="closebtn" (click)="closeOverlay('menuOverlay')">&times;</a>
   <div class="overlay-content">
     <a routerLink="/home" (click)="closeOverlay('menuOverlay')"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
     <a *ngFor="let routerCategory of categories" routerLink="/category/{{ routerCategory.slug }}" (click)="closeOverlay('menuOverlay')"><i class="fa {{ routerCategory.description }}" aria-hidden="true"></i> {{ routerCategory.name }}</a>
+  </div>
+</div>
+<!---->
+<!--search overlay-->
+<div id="searchOverlay" class="overlay">
+  <a class="closebtn" (click)="closeOverlay('searchOverlay')">&times;</a>
+  <div class="overlay-content">
+    <input class="search-input" type="text" placeholder="Search..." name="search" [(ngModel)]="searchKey" (keydown.enter)="getSearchData()">
+    <div class="search-content" >
+        <div *ngFor="let post of searchPosts" class="seach-card">
+            <a class="title" [routerLink]="['/post', post.id, post.slug]"  (click)="closeOverlay('searchOverlay')">{{post.title.rendered}}</a>
+            <span class="desc" [innerHTML]="post.excerpt.rendered"></span>
+        </div>
+    </div>
   </div>
 </div>
 

@@ -870,26 +870,56 @@ var AppComponent = (function () {
         this.model = model;
         this.categories = [];
         this.randomPosts = [];
+        this.searchPosts = [];
         this.tags = [];
         // we need the data synchronously for the client to set the server response
         // we create another method so we have more control for testing
         this.universalInit();
     }
     AppComponent.prototype.universalInit = function () {
-        var _this = this;
         //categories
+        this.getCategory();
+        //tags
+        this.getTag();
+        //random posts
+        this.getPostRandom();
+        //
+        //search
+        this.getSearchData();
+    };
+    //category data
+    AppComponent.prototype.getCategory = function () {
+        var _this = this;
         this.model.get('http://admin.lenvintage.com/wp-json/wp/v2/categories').subscribe(function (data) {
             _this.categories = data;
         });
-        //tags
+    };
+    //
+    //tags data
+    AppComponent.prototype.getTag = function () {
+        var _this = this;
         this.model.get('http://admin.lenvintage.com/wp-json/wp/v2/tags').subscribe(function (data) {
             _this.tags = data;
         });
-        //random posts
+    };
+    //
+    //random posts data
+    AppComponent.prototype.getPostRandom = function () {
+        var _this = this;
         this.model.get('http://admin.lenvintage.com/wp-json/wp/v2/posts/?filter[orderby]=rand&per_page=5').subscribe(function (data) {
             _this.randomPosts = data;
         });
     };
+    //
+    //search data
+    AppComponent.prototype.getSearchData = function () {
+        var _this = this;
+        this.model.get('http://admin.lenvintage.com/wp-json/wp/v2/posts?search=' + this.searchKey).subscribe(function (data) {
+            _this.searchPosts = data;
+            console.log(_this.searchKey);
+        });
+    };
+    //
     // overLay menu and search
     AppComponent.prototype.openOverlay = function (element) {
         document.getElementById(element).style.width = "100%";
@@ -1329,7 +1359,7 @@ exports.fakeDataBase = {
 /* 34 */
 /***/ function(module, exports) {
 
-module.exports = "<header id=\"header\">\n    <nav>\n        <ul class=\"nav-menu\">\n            <li><a routerLink=\"/home\" routerLinkActive=\"is-active\" ><i class=\"fa fa-home\" aria-hidden=\"true\"></i> Home</a></li>\n            <li *ngFor=\"let routerCategory of categories\"><a routerLink=\"/category/{{ routerCategory.slug }}\" routerLinkActive=\"is-active\" ><i class=\"fa {{ routerCategory.description }}\" aria-hidden=\"true\"></i> {{ routerCategory.name }}</a></li>\n        </ul>\n        <ul class=\"menu-mobile\">\n            <a (click)=\"openOverlay('menuOverlay')\"><i class=\"fa fa-bars\" aria-hidden=\"true\"></i></a>\n        </ul>\n        \n        <ul class=\"nav-search\">\n            <li><a href=\"#!\"><i class=\"fa fa-facebook\" aria-hidden=\"true\"></i></a></li>\n            <li><a href=\"#!\"><i class=\"fa fa-instagram\" aria-hidden=\"true\"></i></a></li>\n            <li><a href=\"#!\"><i class=\"fa fa-shopping-bag\" aria-hidden=\"true\"></i></a></li>\n            <li><a class=\"search-trigger\" href=\"#!\" (click)=\"openOverlay('searchOverlay')\"><i class=\"fa fa-search\" aria-hidden=\"true\"></i></a></li>\n        </ul>\n    </nav>\n</header>\n<div id=\"menuOverlay\" class=\"overlay\">\n  <a class=\"closebtn\" (click)=\"closeOverlay('menuOverlay')\">&times;</a>\n  <div class=\"overlay-content\">\n    <a routerLink=\"/home\" (click)=\"closeOverlay('menuOverlay')\"><i class=\"fa fa-home\" aria-hidden=\"true\"></i> Home</a>\n    <a *ngFor=\"let routerCategory of categories\" routerLink=\"/category/{{ routerCategory.slug }}\" (click)=\"closeOverlay('menuOverlay')\"><i class=\"fa {{ routerCategory.description }}\" aria-hidden=\"true\"></i> {{ routerCategory.name }}</a>\n  </div>\n</div>\n\n<div class=\"parallax\">\n    <div class=\"parallax-logo\">\n        <a routerLink=\"/home\"><img src=\"../assets/images/logo.png\" alt=\"logo\"></a>\n    </div>\n    <h1>Len Vintage</h1>\n    <div class=\"parallax-to-content\">\n        <a (click)=\"scrollToDownMain()\">\n            <i class=\"fa fa-arrow-down\" aria-hidden=\"true\"></i>\n        </a>\n    </div>\n</div>\n<main id=\"main\">\n        <div class=\"web-container\">\n            <div class=\"about\">\n<!--               About me-->\n                <img class=\"about-thumb\" src=\"assets/images/avatar.jpg\" alt=\"len\">\n                <h1>LEN vintage</h1>\n                <span>Kẹo thì ngọt. Len thì rối. Nước khó nắm bắt... Nhưng tất cả rồi sẽ ổn thôi </span>\n            </div>\n            <div class=\"web-wrapper\">\n<!--               Main content of website-->\n              <router-outlet></router-outlet>  \n            </div>\n            <div class=\"sidebar\">\n<!--               Sidebar components-->\n                <!--latest posts-->\n                <h1>Popular posts</h1>\n                \n                <div *ngFor=\"let post of randomPosts\" class=\"sidebar-card\">\n                    <div class=\"sidebar-card_thumb\">\n                        <a [routerLink]=\"['/post', post.id, post.slug]\"><img src=\"{{post.better_featured_image.media_details.sizes.thumbnail.source_url}}\" alt=\"{{post.title.rendered}}\"></a>\n                    </div>\n                    <div class=\"sidebar-card_info\">\n                        <div class=\"sidebar-card_title\">\n                            <a [routerLink]=\"['/post', post.id, post.slug]\">{{post.title.rendered}}</a>\n                        </div>\n                        <div class=\"sidebar-card_time\">\n                            {{post.date | date:\"dd/MM/yyyy\"}}\n                        </div>\n                    </div>\n                </div>\n                <!--Tag cloud-->\n                <h1>Tag Cloud</h1>\n                <div class=\"sidebar-tags\">\n                    <a *ngFor=\"let tag of tags\" routerLink=\"/tag/{{tag.slug}}\">{{tag.name}}</a>\n                </div>\n            \n            </div>\n        </div>\n    </main>\n    \n\n<footer>\n    <div class=\"copyright\">Develop by <a href=\"http://linhho.net\">Linh Ho</a></div>\n    <div class=\"back-to-top\"><a (click)=\"scrollToUpMain()\"><i class=\"fa fa-arrow-circle-up\" aria-hidden=\"true\"></i></a></div>\n</footer>"
+module.exports = "<header id=\"header\">\n    <nav>\n        <ul class=\"nav-menu\">\n            <li><a routerLink=\"/home\" routerLinkActive=\"is-active\" ><i class=\"fa fa-home\" aria-hidden=\"true\"></i> Home</a></li>\n            <li *ngFor=\"let routerCategory of categories\"><a routerLink=\"/category/{{ routerCategory.slug }}\" routerLinkActive=\"is-active\" ><i class=\"fa {{ routerCategory.description }}\" aria-hidden=\"true\"></i> {{ routerCategory.name }}</a></li>\n        </ul>\n        <ul class=\"menu-mobile\">\n            <a (click)=\"openOverlay('menuOverlay')\"><i class=\"fa fa-bars\" aria-hidden=\"true\"></i></a>\n        </ul>\n        \n        <ul class=\"nav-search\">\n            <li><a href=\"http://goo.gl/v9Rso8\"><i class=\"fa fa-facebook\" aria-hidden=\"true\"></i></a></li>\n            <li><a href=\"goo.gl/Md0yud\"><i class=\"fa fa-instagram\" aria-hidden=\"true\"></i></a></li>\n            <li><a href=\"goo.gl/e7PosF\"><i class=\"fa fa-shopping-bag\" aria-hidden=\"true\"></i></a></li>\n            <li><a class=\"search-trigger\" (click)=\"openOverlay('searchOverlay')\"><i class=\"fa fa-search\" aria-hidden=\"true\"></i></a></li>\n        </ul>\n    </nav>\n</header>\n<!--menu overlay-->\n<div id=\"menuOverlay\" class=\"overlay\">\n  <a class=\"closebtn\" (click)=\"closeOverlay('menuOverlay')\">&times;</a>\n  <div class=\"overlay-content\">\n    <a routerLink=\"/home\" (click)=\"closeOverlay('menuOverlay')\"><i class=\"fa fa-home\" aria-hidden=\"true\"></i> Home</a>\n    <a *ngFor=\"let routerCategory of categories\" routerLink=\"/category/{{ routerCategory.slug }}\" (click)=\"closeOverlay('menuOverlay')\"><i class=\"fa {{ routerCategory.description }}\" aria-hidden=\"true\"></i> {{ routerCategory.name }}</a>\n  </div>\n</div>\n<!---->\n<!--search overlay-->\n<div id=\"searchOverlay\" class=\"overlay\">\n  <a class=\"closebtn\" (click)=\"closeOverlay('searchOverlay')\">&times;</a>\n  <div class=\"overlay-content\">\n    <input class=\"search-input\" type=\"text\" placeholder=\"Search...\" name=\"search\" [(ngModel)]=\"searchKey\" (keydown.enter)=\"getSearchData()\">\n    <div class=\"search-content\" >\n        <div *ngFor=\"let post of searchPosts\" class=\"seach-card\">\n            <a class=\"title\" [routerLink]=\"['/post', post.id, post.slug]\"  (click)=\"closeOverlay('searchOverlay')\">{{post.title.rendered}}</a>\n            <span class=\"desc\" [innerHTML]=\"post.excerpt.rendered\"></span>\n        </div>\n    </div>\n  </div>\n</div>\n\n<div class=\"parallax\">\n    <div class=\"parallax-logo\">\n        <a routerLink=\"/home\"><img src=\"../assets/images/logo.png\" alt=\"logo\"></a>\n    </div>\n    <h1>Len Vintage</h1>\n    <div class=\"parallax-to-content\">\n        <a (click)=\"scrollToDownMain()\">\n            <i class=\"fa fa-arrow-down\" aria-hidden=\"true\"></i>\n        </a>\n    </div>\n</div>\n<main id=\"main\">\n        <div class=\"web-container\">\n            <div class=\"about\">\n<!--               About me-->\n                <img class=\"about-thumb\" src=\"assets/images/avatar.jpg\" alt=\"len\">\n                <h1>LEN vintage</h1>\n                <span>Kẹo thì ngọt. Len thì rối. Nước khó nắm bắt... Nhưng tất cả rồi sẽ ổn thôi </span>\n            </div>\n            <div class=\"web-wrapper\">\n<!--               Main content of website-->\n              <router-outlet></router-outlet>  \n            </div>\n            <div class=\"sidebar\">\n<!--               Sidebar components-->\n                <!--latest posts-->\n                <h1>Popular posts</h1>\n                \n                <div *ngFor=\"let post of randomPosts\" class=\"sidebar-card\">\n                    <div class=\"sidebar-card_thumb\">\n                        <a [routerLink]=\"['/post', post.id, post.slug]\"><img src=\"{{post.better_featured_image.media_details.sizes.thumbnail.source_url}}\" alt=\"{{post.title.rendered}}\"></a>\n                    </div>\n                    <div class=\"sidebar-card_info\">\n                        <div class=\"sidebar-card_title\">\n                            <a [routerLink]=\"['/post', post.id, post.slug]\">{{post.title.rendered}}</a>\n                        </div>\n                        <div class=\"sidebar-card_time\">\n                            {{post.date | date:\"dd/MM/yyyy\"}}\n                        </div>\n                    </div>\n                </div>\n                <!--Tag cloud-->\n                <h1>Tag Cloud</h1>\n                <div class=\"sidebar-tags\">\n                    <a *ngFor=\"let tag of tags\" routerLink=\"/tag/{{tag.slug}}\">{{tag.name}}</a>\n                </div>\n            \n            </div>\n        </div>\n    </main>\n    \n\n<footer>\n    <div class=\"copyright\">Develop by <a href=\"http://linhho.net\">Linh Ho</a></div>\n    <div class=\"back-to-top\"><a (click)=\"scrollToUpMain()\"><i class=\"fa fa-arrow-circle-up\" aria-hidden=\"true\"></i></a></div>\n</footer>"
 
 /***/ },
 /* 35 */

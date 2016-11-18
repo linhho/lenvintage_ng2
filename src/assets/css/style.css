@@ -625,6 +625,42 @@ nav a:active {
     font-size: 2rem;
 }
 
+/*
+* search
+*/
+.search-input {
+    background-color: rgb(255, 255, 255);
+    background-color: rgba(255, 255, 255, 0.1);
+    width: 90%;
+    border: 0px;
+    border-bottom: 1px solid #80deea;
+    font-size: 2rem;
+}
+.search-input:focus{
+    outline: 0px;
+    border-bottom: 1px solid #00838f;
+}
+.search-content {
+    width: 90%;
+    margin-top: 50px;
+    margin: auto;
+}
+.seach-card {
+    background-color: #fff;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    border-radius: 10px;
+}
+.seach-card .title {
+    margin: 5px;
+    font-family: 'Pattaya', sans-serif;
+}
+.seach-card .desc {
+    margin: 5px;
+}
+.seach-card .more-link {
+    display: none;
+}
 
 /*
 * animation
