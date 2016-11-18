@@ -25,9 +25,9 @@
                         {{post.date | date:"dd/MM/yyyy"}} by <a [routerLink]="['/home']">Len</a>
                     </div>
                     <div class="share-card">
-                        <a href="#!"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                        <a href="#!"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
-                        <a href="#!"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{post.link}}"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a href="https://plus.google.com/share?url={{post.link}}"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                        <a href="https://twitter.com/home?status={{post.link}}"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                     </div>
                 </div>
             </div>

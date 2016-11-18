@@ -56,7 +56,6 @@ export class AppComponent {
   getSearchData(){
     this.model.get('http://admin.lenvintage.com/wp-json/wp/v2/posts?search='+this.searchKey).subscribe(data => {
       this.searchPosts = data;
-      console.log(this.searchKey);
     });
   }
   //

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, AfterViewInit, OnDestroy, Renderer, ChangeDetectionStrategy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ModelService } from '../shared/api.service';
 import { Post } from '../model/post.model';
@@ -16,11 +16,14 @@ export class PostComponent {
   content: string;
   slug: string;
   date: string;
+  link: string;
 
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
-    public model: ModelService) {
+    public model: ModelService,
+    private el: ElementRef, 
+    private renderer: Renderer) {
       this.universalInit();
     }
     
@@ -47,8 +50,53 @@ export class PostComponent {
             this.slug = data.slug;
             this.date = data.date;
             this.content = data.content.rendered;
+            this.link = data.link;
             this.scrollToMain();
+            this.reset();
         });
     });
+  }
+
+  ngAfterViewInit() {
+    if ((<any>window).DISQUS === undefined) {
+      this.addScriptTag();
+    }
+    else {
+      this.reset();
+    }
+  }
+
+    /**
+   * Reset disqus with new inputs.
+   */
+  reset() {
+    (<any>window).DISQUS.reset({
+      reload: true,
+      config: this.getConfig()
+    });
+  }
+
+  /**
+   * Add disqus script to the document.
+   */
+  addScriptTag() {
+    (<any>window).disqus_config = this.getConfig();
+
+    let script = this.renderer.createElement(this.el.nativeElement, 'script');
+    script.src = `//lenvintage.disqus.com/embed.js`;
+    script.async = true;
+    script.type = 'text/javascript';
+    script.setAttribute('data-timestamp', new Date().getTime().toString());
+  }
+
+  /**
+   * Get disqus config
+   */
+  getConfig() {
+    let _self = this;
+    return function () {
+      this.page.url = this.link || window.location.href;
+      this.page.identifier = this.id+"/"+this.slug;
+    };
   }
 }
