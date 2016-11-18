@@ -75,6 +75,7 @@ app.get('/category/*', ngApp);
 app.get('/home', ngApp);
 app.get('/home/*', ngApp);
 app.get('/post/*/*', ngApp);
+app.get('/tag/*', ngApp);
 
 app.get('*', function(req, res) {
   res.setHeader('Content-Type', 'application/json');

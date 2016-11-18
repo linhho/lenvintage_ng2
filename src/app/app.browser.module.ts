@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
 import { CacheService } from './shared/cache.service';
 import { PostModule } from './post/post.module';
+import { TagModule } from './tag/tag.module';
 
 export function getLRU() {
   return new Map();
@@ -28,7 +29,8 @@ export const UNIVERSAL_KEY = 'UNIVERSAL_CACHE';
     HomeModule,
     CategoryModule,
     PostModule,
-    
+    TagModule,
+
     AppRoutingModule
   ],
   providers: [

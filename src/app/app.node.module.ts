@@ -17,6 +17,7 @@ import { CacheService } from './shared/cache.service';
 
 // import * as LRU from 'modern-lru';
 import { PostModule } from './post/post.module';
+import { TagModule } from './tag/tag.module';
 
 
 export function getLRU(lru?: any) {
@@ -36,6 +37,7 @@ export function getLRU(lru?: any) {
     HomeModule,
     CategoryModule,
     PostModule,
+    TagModule,
 
     AppRoutingModule
   ],

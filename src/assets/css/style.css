@@ -620,6 +620,11 @@ nav a:active {
     font-size: 1.5rem
 }
 
+.tag-cloud {
+    text-align: center;
+    font-size: 2rem;
+}
+
 
 /*
 * animation
