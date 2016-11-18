@@ -3,7 +3,6 @@
         <ul class="nav-menu">
             <li><a routerLink="/home" routerLinkActive="is-active" ><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
             <li *ngFor="let routerCategory of categories"><a routerLink="/category/{{ routerCategory.slug }}" routerLinkActive="is-active" ><i class="fa {{ routerCategory.description }}" aria-hidden="true"></i> {{ routerCategory.name }}</a></li>
-            <!--routerLink="/category/{{ routerCategory.slug }}" routerLinkActive="active"-->
         </ul>
         <ul class="menu-mobile">
             <a (click)="openOverlay('menuOverlay')"><i class="fa fa-bars" aria-hidden="true"></i></a>
