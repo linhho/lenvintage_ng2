@@ -1,27 +1,38 @@
 @import url('https://fonts.googleapis.com/css?family=Cormorant+Upright|Pattaya|Quicksand&subset=latin-ext,vietnamese');
-
 * {
-    font-size: 1.2rem; 
+    font-size: 1.2rem;
     font-family: 'Cormorant Upright', serif;
 }
-html, body {
+
+html,
+body {
     margin: 0px;
     background-color: #efebe9;
-    height: 100%       
+    height: 100%
 }
-a:link, a:visited {
+
+a:link,
+a:visited {
     text-decoration: none;
-    color: #00bcd4 
+    color: #00bcd4
 }
-a:hover, a:active {
+
+a:hover,
+a:active {
     text-decoration: none;
     color: #00838f
 }
+
 .is-active {
     color: #006064 !important
 }
+
+
 /**/
+
+
 /*navigation style*/
+
 nav {
     position: fixed;
     z-index: 6969;
@@ -30,40 +41,49 @@ nav {
     height: 62px;
     background-image: url('../images/nav-bg.png');
     border-top: 2px solid #00bcd4;
-/*    animation*/
-    -webkit-animation-name: navigation; /* Chrome, Safari, Opera */
-    -webkit-animation-duration: 2s; /* Chrome, Safari, Opera */
+    /*    animation*/
+    -webkit-animation-name: navigation;
+    /* Chrome, Safari, Opera */
+    -webkit-animation-duration: 2s;
+    /* Chrome, Safari, Opera */
     animation-name: navigation;
     animation-duration: 2s;
 }
+
 nav .nav-menu {
     margin: 0px;
     list-style-type: none
 }
+
 nav .nav-menu li {
     float: left;
     margin-top: 19px;
     margin-right: 10px
 }
+
 nav .nav-search {
     margin: 0px;
     margin-right: 19px;
     float: right;
     list-style-type: none
 }
+
 nav .nav-search li {
     margin-top: 19px;
-        float: left;
+    float: left;
     margin-left: 10px
 }
+
 nav a {
     text-decoration: none;
     display: inline-block;
     font-family: 'Quicksand', sans-serif;
     font-size: 0.9rem;
-    color: #80deea 
+    color: #80deea
 }
-nav a:hover, nav a:active {
+
+nav a:hover,
+nav a:active {
     color: #00838f;
     font-size: 1.2rem
 }
@@ -71,6 +91,7 @@ nav a:hover, nav a:active {
 nav .menu-mobile {
     display: none;
 }
+
 .search-trigger {
     margin-left: 10px;
     margin-top: -5px;
@@ -83,56 +104,64 @@ nav .menu-mobile {
     border-radius: 50%;
     color: #00bcd4
 }
-.search-trigger:hover, .search-trigger:active {
+
+.search-trigger:hover,
+.search-trigger:active {
     font-size: 1rem;
     background-color: #00bcd4;
     color: #fff
 }
+
+
 /**/
+
 .parallax {
     /* The image used */
     background-image: url('../images/parallax-2.jpg');
-
     /* Full height */
     height: 100%;
-
     /* Create the parallax scrolling effect */
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover
 }
+
 .parallax-logo {
     width: 320px;
     margin: auto;
     text-align: center;
     padding-top: 100px;
-    
 }
+
 .parallax-logo img {
     max-height: 320px;
     height: 50vh;
 }
+
 .parallax h1 {
     text-align: center;
     font-family: 'Pattaya', sans-serif;
     letter-spacing: 15px;
     font-size: 2rem;
     color: #fff;
-    
 }
+
 .parallax-to-content {
     text-align: center;
-    
 }
+
 .parallax-to-content a {
     color: #fff;
-        /*animate*/
-    -webkit-animation-name: top-to-content; /* Chrome, Safari, Opera */
-    -webkit-animation-duration: 2s; /* Chrome, Safari, Opera */
+    /*animate*/
+    -webkit-animation-name: top-to-content;
+    /* Chrome, Safari, Opera */
+    -webkit-animation-duration: 2s;
+    /* Chrome, Safari, Opera */
     animation-name: top-to-content;
     animation-duration: 2s;
 }
+
 .parallax-to-content a i {
     position: relative;
     font-size: 1rem;
@@ -141,20 +170,25 @@ nav .menu-mobile {
     animation-iteration-count: infinite;
     animation-direction: alternate;
 }
+
+
 /*
 * Main
 */
+
 main {
     padding-top: 20px;
     clear: both;
-    font-size:36px
+    font-size: 36px
 }
+
 footer {
     height: 60px;
     clear: both;
     margin-top: 50px;
-    background-color: #00acc1 
+    background-color: #00acc1
 }
+
 footer .copyright {
     width: 50%;
     float: left;
@@ -164,12 +198,14 @@ footer .copyright {
     font-size: 1rem;
     color: #616161
 }
+
 footer .copyright a {
     text-decoration: none;
     font-family: 'Quicksand', sans-serif;
     font-size: 1rem;
     color: #424242
 }
+
 footer .back-to-top {
     float: right;
     margin-right: 19px;
@@ -178,29 +214,35 @@ footer .back-to-top {
     animation-name: changlocation-footer;
     animation-iteration-count: infinite;
     animation-direction: alternate
-    
 }
+
 footer .back-to-top a i {
     font-size: 2rem;
     color: #fff
 }
-footer .back-to-top a:hover, nav a:active {
+
+footer .back-to-top a:hover,
+nav a:active {
     color: #006064
 }
+
 .web-container {
     width: 80%;
     margin: auto;
 }
+
 .about {
     width: 30%;
     float: left;
     margin-bottom: 50px;
 }
+
 .about .about-thumb {
     width: 50%;
     margin-left: 25%;
     border-radius: 50%;
 }
+
 .about h1 {
     margin: 10px 0px;
     text-align: center;
@@ -209,9 +251,11 @@ footer .back-to-top a:hover, nav a:active {
     font-family: 'Pattaya', sans-serif;
     border-bottom: 1px solid #d7ccc8
 }
+
 .sidebar {
     width: 30%
 }
+
 .sidebar h1 {
     text-align: center;
     letter-spacing: 5px;
@@ -220,51 +264,68 @@ footer .back-to-top a:hover, nav a:active {
     border-bottom: 1px solid #d7ccc8;
     margin-top: 30px;
 }
+
 .web-wrapper {
     width: 70%;
     float: right
 }
+
+
 /**/
 
+
 /*Content card style*/
+
 .card {
     margin-left: 30px;
     margin-bottom: 0px;
     background-color: #fff;
     border-radius: 3px
 }
+
 .card .thumb-card img {
     width: 100%;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px
 }
+
 .card .info-card {
     position: relative;
     z-index: 9;
     margin-top: -40px;
 }
+
 .card .info-card .info-card_left {
     width: 50%;
     height: 60px;
     background-color: #fff;
     /* Rotate div */
-    -ms-transform: skewX(-8deg); /* IE 9 */
-    -ms-transform: skewY(-8deg); /* IE 9 */
-    -webkit-transform: skewX(-8deg); /* Chrome, Safari, Opera */
-    -webkit-transform: skewY(-8deg); /* Chrome, Safari, Opera */
+    -ms-transform: skewX(-8deg);
+    /* IE 9 */
+    -ms-transform: skewY(-8deg);
+    /* IE 9 */
+    -webkit-transform: skewX(-8deg);
+    /* Chrome, Safari, Opera */
+    -webkit-transform: skewY(-8deg);
+    /* Chrome, Safari, Opera */
     transform: skewX(-8deg);
     transform: skewY(-8deg);
     float: left
 }
+
 .card .info-card .info-card_right {
     width: 50%;
     height: 60px;
     background-color: #fff;
     /* Rotate div */
-    -ms-transform: skewX(8deg); /* IE 9 */
-    -ms-transform: skewY(8deg); /* IE 9 */
-    -webkit-transform: skewX(8deg); /* Chrome, Safari, Opera */
-    -webkit-transform: skewY(8deg); /* Chrome, Safari, Opera */
+    -ms-transform: skewX(8deg);
+    /* IE 9 */
+    -ms-transform: skewY(8deg);
+    /* IE 9 */
+    -webkit-transform: skewX(8deg);
+    /* Chrome, Safari, Opera */
+    -webkit-transform: skewY(8deg);
+    /* Chrome, Safari, Opera */
     transform: skewX(8deg);
     transform: skewY(8deg);
     float: right
@@ -277,20 +338,24 @@ footer .back-to-top a:hover, nav a:active {
     text-align: center;
     clear: both
 }
+
 .card .info-card .category-card a {
     color: #fff
 }
+
 .card .info-card .category-card a:hover i {
     background-color: #fff;
     color: #00bcd4;
     border: 1px solid #00bcd4
 }
+
 .card .info-card .category-card i {
     padding: 10px;
     border-radius: 50%;
     background-color: #00bcd4;
     color: #fff
 }
+
 .card .content-card {
     width: 100%;
     border-radius: 3px;
@@ -298,6 +363,7 @@ footer .back-to-top a:hover, nav a:active {
     margin-top: 80px;
     margin-bottom: 30px;
 }
+
 .card .content-card .title-card {
     margin-top: 50px;
     margin-left: 10px;
@@ -305,58 +371,71 @@ footer .back-to-top a:hover, nav a:active {
     font-size: 1.5rem;
     text-align: center
 }
+
 .card .content-card .title-card a {
     font-size: 1.5rem;
     font-family: 'Pattaya', sans-serif;
     color: #000
 }
-.card .content-card .title-card a:hover, .card .content-card .title-card a:active {
+
+.card .content-card .title-card a:hover,
+.card .content-card .title-card a:active {
     color: #616161
 }
+
 .card .content-card .desc-card {
     margin: 0px 10px;
     text-align: justify;
 }
+
 .card .content-card .desc-card .more-link {
     display: none
 }
+
 .card .content-card .postcontent-card {
     margin: 0px 10px;
 }
+
 .card .content-card .postcontent-card * {
     max-width: 100%;
     height: auto;
 }
+
 .card .content-card .postcontent-card .aligncenter {
     display: block;
     margin: 5px auto
 }
+
 .card .bottom-card {
     border-top: 1px solid #eee
 }
+
 .card .time {
     margin-left: 10px;
     margin-top: 15px;
     font-family: 'Quicksand', sans-serif;
-    float:left;
+    float: left;
     font-size: 0.9rem
 }
+
 .card .time a {
     font-family: 'Quicksand', sans-serif;
     font-size: 0.9rem;
 }
+
 .card .share-card {
     margin: 10px;
     width: 35%;
-    float:right;
+    float: right;
     text-align: right
 }
+
 .card .share-card a {
     font-size: 1rem;
     margin-left: 10px;
     color: #00bcd4;
-    
 }
+
 .card .share-card a i {
     width: 1rem;
     height: 1rem;
@@ -364,8 +443,8 @@ footer .back-to-top a:hover, nav a:active {
     text-align: center;
     border: 1.5px solid #eee;
     border-radius: 50%;
-    
 }
+
 .card .share-card a:hover i {
     color: #fff;
     background-color: #00bcd4
@@ -374,6 +453,7 @@ footer .back-to-top a:hover, nav a:active {
 .continue-reading {
     text-align: center
 }
+
 .continue-reading a {
     padding: 10px;
     border: 1px solid #b2ebf2;
@@ -384,7 +464,9 @@ footer .back-to-top a:hover, nav a:active {
     margin: 10px 0px;
     font-family: 'Quicksand', sans-serif;
 }
-.continue-reading a:hover, .continue-reading a:active {
+
+.continue-reading a:hover,
+.continue-reading a:active {
     background-color: #00bcd4;
     color: #fff;
 }
@@ -397,6 +479,7 @@ footer .back-to-top a:hover, nav a:active {
     text-align: center;
     vertical-align: middle;
 }
+
 .load-more a {
     display: block;
     width: 100px;
@@ -410,21 +493,28 @@ footer .back-to-top a:hover, nav a:active {
     font-size: 0.9rem
 }
 
-.load-more a:hover, .load-more a:active {
+.load-more a:hover,
+.load-more a:active {
     color: #fff;
     background-color: #00bcd4;
-    
 }
+
+
 /**/
+
+
 /*sidebar card style*/
+
 .sidebar-card {
     width: 100%;
     margin-top: 30px;
 }
+
 .sidebar-card .sidebar-card_thumb img {
     width: 100%;
-        border-radius: 3px;
+    border-radius: 3px;
 }
+
 .sidebar-card .sidebar-card_info {
     position: relative;
     z-index: 9;
@@ -439,26 +529,31 @@ footer .back-to-top a:hover, nav a:active {
     border-bottom-right-radius: 3px;
     background-image: url(../images/sidebar-card_info__bg.png)
 }
-.sidebar-card .sidebar-card_title{
+
+.sidebar-card .sidebar-card_title {
     margin-left: 10px;
     margin-right: 10px
 }
+
 .sidebar-card .sidebar-card_title a {
     color: #000;
     font-family: 'Pattaya', sans-serif;
     font-size: 1rem
 }
+
 .sidebar-card .sidebar-card_time {
     text-align: right;
     font-family: 'Quicksand', sans-serif;
     font-size: 0.8rem;
     margin: 20px 10px;
 }
+
 .sidebar-card .view-more {
     text-align: right;
     margin-top: 20px;
     margin-right: 10px
 }
+
 .sidebar-tags a {
     display: inline-block;
     background-color: #00bcd4;
@@ -468,14 +563,19 @@ footer .back-to-top a:hover, nav a:active {
     margin-bottom: 5px;
     color: #fff;
     font-size: 0.9rem;
-    padding: 5px;
+    padding: 5px
 }
-.sidebar-tags a:hover, .sidebar-tags a:active {
-    background-color: #00838f;
+
+.sidebar-tags a:hover,
+.sidebar-tags a:active {
+    background-color: #00838f
 }
+
+
 /*
 * overlay
 */
+
 .overlay {
     height: 100%;
     width: 0;
@@ -483,10 +583,10 @@ footer .back-to-top a:hover, nav a:active {
     z-index: 6969;
     top: 0;
     left: 0;
-    background-color: rgb(255,255,255);
-    background-color: rgba(255,255,255, 0.8);
+    background-color: rgb(255, 255, 255);
+    background-color: rgba(255, 255, 255, 0.8);
     overflow-x: hidden;
-    transition: 0.5s;
+    transition: 0.5s
 }
 
 .overlay-content {
@@ -494,7 +594,7 @@ footer .back-to-top a:hover, nav a:active {
     top: 15%;
     width: 100%;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 20px
 }
 
 .overlay a {
@@ -504,37 +604,41 @@ footer .back-to-top a:hover, nav a:active {
     font-size: 1.3rem;
     color: #00bcd4;
     display: block;
-    transition: 0.3s;
+    transition: 0.3s
 }
 
-.overlay a:hover, .overlay a:focus {
+.overlay a:hover,
+.overlay a:focus {
     font-size: 2rem;
-    color: #006064;
+    color: #006064
 }
 
 .overlay .closebtn {
     position: absolute;
     top: 20px;
     right: 45px;
-    font-size: 1.5rem;
+    font-size: 1.5rem
 }
+
+
 /*
 * animation
 */
+
 @keyframes top-to-content {
-    0%   {
+    0% {
         opacity: 0;
-    },
+    }
     100% {
         opacity: 1;
     }
 }
 
 @keyframes navigation {
-    0%   {
+    0% {
         top: -62px;
         opacity: 0;
-    },
+    }
     100% {
         top: 0;
         opacity: 1;
@@ -542,23 +646,23 @@ footer .back-to-top a:hover, nav a:active {
 }
 
 @keyframes changlocation {
-  from {
-    margin-top: -8px;
-  }
-
-  to {
-    margin-top: 8px;
-  }
+    from {
+        margin-top: -8px;
+    }
+    to {
+        margin-top: 8px;
+    }
 }
+
 @keyframes changlocation-footer {
-  from {
-    margin-top: 7px;
-  }
-
-  to {
-    margin-top: 10px;
-  }
+    from {
+        margin-top: 7px;
+    }
+    to {
+        margin-top: 10px;
+    }
 }
+
 
 /*
 * screen min-width 1550
@@ -569,6 +673,8 @@ footer .back-to-top a:hover, nav a:active {
         width: 1240px;
     }
 }
+
+
 /*
 * screen max-width 1085
 */
@@ -585,6 +691,7 @@ footer .back-to-top a:hover, nav a:active {
         display: block;
     }
 }
+
 
 /*
 * screen max-width 900
@@ -613,6 +720,8 @@ footer .back-to-top a:hover, nav a:active {
         margin-left: 25%;
     }
 }
+
+
 /*
 * screen max-width 600
 */
@@ -641,10 +750,10 @@ footer .back-to-top a:hover, nav a:active {
         margin-left: 5px;
     }
     .overlay-content {
-    position: relative;
-    top: 10%;
-    width: 100%;
-    text-align: center;
-    margin-top: 10px;
-}
+        position: relative;
+        top: 10%;
+        width: 100%;
+        text-align: center;
+        margin-top: 10px;
+    }
 }

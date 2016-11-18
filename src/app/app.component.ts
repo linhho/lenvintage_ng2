@@ -32,6 +32,7 @@ export class AppComponent {
       this.randomPosts = data;
     });
   }
+  // overLay menu and search
   openOverlay(element: string) {
       document.getElementById(element).style.width = "100%";
   }
@@ -39,4 +40,31 @@ export class AppComponent {
   closeOverlay(element: string) {
       document.getElementById(element).style.width = "0%";
   }
+  //
+  // scroll to main
+  scrollToUpMain() {
+        let ele = document.getElementById("main"); 
+        setTimeout(function(){
+          var scrollStep = -window.scrollY / (ele.offsetTop / 15),
+          scrollInterval = setInterval(function(){
+              if ( window.scrollY > ele.offsetTop ) {
+                  window.scrollBy( 0, scrollStep );
+              }
+              else clearInterval(scrollInterval); 
+          },15);
+        },200)  
+    }
+    scrollToDownMain() {
+        let ele = document.getElementById("main"); 
+        setTimeout(function(){
+          var scrollStep = ele.offsetTop / (window.scrollY+100 / 15),
+          scrollInterval = setInterval(function(){
+              if ( window.scrollY < ele.offsetTop ) {
+                  window.scrollBy( 0, scrollStep );
+              }
+              else clearInterval(scrollInterval); 
+          },15);
+        },200)  
+    }
+  //
 }

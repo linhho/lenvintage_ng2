@@ -51892,19 +51892,37 @@ var CategoryComponent = (function () {
         this.postNum = 5;
         this.universalInit();
     }
+    CategoryComponent.prototype.scrollToMain = function () {
+        var ele = document.getElementById("main");
+        setTimeout(function () {
+            var scrollStep = -window.scrollY / (ele.offsetTop / 15), scrollInterval = setInterval(function () {
+                if (window.scrollY > ele.offsetTop) {
+                    window.scrollBy(0, scrollStep);
+                }
+                else
+                    clearInterval(scrollInterval);
+            }, 15);
+        }, 200);
+    };
     CategoryComponent.prototype.universalInit = function () {
         var _this = this;
         this.sub = this._route.params.subscribe(function (params) {
-            var num = _this.postNum + 5;
-            _this.model.get('http://admin.lenvintage.com/wp-json/wp/v2/posts/?filter[category_name]=' + params['slug'] + '&per_page=' + num).subscribe(function (data) {
-                _this.posts = data;
-                _this.postsLength = data.length;
-            });
+            _this.postSlug = params['slug'];
+            _this.getData(_this.postSlug);
+            _this.scrollToMain();
+        });
+    };
+    CategoryComponent.prototype.getData = function (postSlug) {
+        var _this = this;
+        var num = this.postNum + 5;
+        this.model.get('http://admin.lenvintage.com/wp-json/wp/v2/posts/?filter[category_name]=' + postSlug + '&per_page=' + num).subscribe(function (data) {
+            _this.posts = data;
+            _this.postsLength = data.length;
         });
     };
     CategoryComponent.prototype.postLoadMore = function () {
         this.postNum += 5;
-        this.universalInit();
+        this.getData(this.postSlug);
     };
     CategoryComponent = __decorate([
         core_1.Component({
@@ -51943,8 +51961,21 @@ var HomeComponent = (function () {
         this._router = _router;
         this.model = model;
         this.postNum = 5;
+        this.scrollToMain();
         this.universalInit();
     }
+    HomeComponent.prototype.scrollToMain = function () {
+        var ele = document.getElementById("main");
+        setTimeout(function () {
+            var scrollStep = -window.scrollY / (ele.offsetTop / 15), scrollInterval = setInterval(function () {
+                if (window.scrollY > 0) {
+                    window.scrollBy(0, scrollStep);
+                }
+                else
+                    clearInterval(scrollInterval);
+            }, 15);
+        }, 200);
+    };
     HomeComponent.prototype.universalInit = function () {
         var _this = this;
         var num = this.postNum + 5;
@@ -51995,8 +52026,21 @@ var PostComponent = (function () {
         this.model = model;
         this.universalInit();
     }
+    PostComponent.prototype.scrollToMain = function () {
+        var ele = document.getElementById("main");
+        setTimeout(function () {
+            var scrollStep = -window.scrollY / (ele.offsetTop / 15), scrollInterval = setInterval(function () {
+                if (window.scrollY > ele.offsetTop) {
+                    window.scrollBy(0, scrollStep);
+                }
+                else
+                    clearInterval(scrollInterval);
+            }, 15);
+        }, 200);
+    };
     PostComponent.prototype.universalInit = function () {
         var _this = this;
+        this.scrollToMain();
         this.sub = this._route.params.subscribe(function (params) {
             _this.model.get('http://admin.lenvintage.com/wp-json/wp/v2/posts/' + params['id']).subscribe(function (data) {
                 _this.id = data.id;
@@ -52005,6 +52049,7 @@ var PostComponent = (function () {
                 _this.slug = data.slug;
                 _this.date = data.date;
                 _this.content = data.content.rendered;
+                _this.scrollToMain();
             });
         });
     };
@@ -70037,11 +70082,38 @@ var AppComponent = (function () {
             _this.randomPosts = data;
         });
     };
+    // overLay menu and search
     AppComponent.prototype.openOverlay = function (element) {
         document.getElementById(element).style.width = "100%";
     };
     AppComponent.prototype.closeOverlay = function (element) {
         document.getElementById(element).style.width = "0%";
+    };
+    //
+    // scroll to main
+    AppComponent.prototype.scrollToUpMain = function () {
+        var ele = document.getElementById("main");
+        setTimeout(function () {
+            var scrollStep = -window.scrollY / (ele.offsetTop / 15), scrollInterval = setInterval(function () {
+                if (window.scrollY > ele.offsetTop) {
+                    window.scrollBy(0, scrollStep);
+                }
+                else
+                    clearInterval(scrollInterval);
+            }, 15);
+        }, 200);
+    };
+    AppComponent.prototype.scrollToDownMain = function () {
+        var ele = document.getElementById("main");
+        setTimeout(function () {
+            var scrollStep = ele.offsetTop / (window.scrollY + 100 / 15), scrollInterval = setInterval(function () {
+                if (window.scrollY < ele.offsetTop) {
+                    window.scrollBy(0, scrollStep);
+                }
+                else
+                    clearInterval(scrollInterval);
+            }, 15);
+        }, 200);
     };
     AppComponent = __decorate([
         core_1.Component({
@@ -83630,7 +83702,7 @@ function nonZero(len, crypto) {
 /* 514 */
 /***/ function(module, exports) {
 
-module.exports = "<header>\n    <nav>\n        <ul class=\"nav-menu\">\n            <li><a routerLink=\"/home\" routerLinkActive=\"is-active\" ><i class=\"fa fa-home\" aria-hidden=\"true\"></i> Home</a></li>\n            <li *ngFor=\"let routerCategory of categories\"><a routerLink=\"/category/{{ routerCategory.slug }}\" routerLinkActive=\"is-active\" ><i class=\"fa {{ routerCategory.description }}\" aria-hidden=\"true\"></i> {{ routerCategory.name }}</a></li>\n            <!--routerLink=\"/category/{{ routerCategory.slug }}\" routerLinkActive=\"active\"-->\n        </ul>\n        <ul class=\"menu-mobile\">\n            <a (click)=\"openOverlay('menuOverlay')\"><i class=\"fa fa-bars\" aria-hidden=\"true\"></i></a>\n        </ul>\n        \n        <ul class=\"nav-search\">\n            <li><a href=\"#!\"><i class=\"fa fa-facebook\" aria-hidden=\"true\"></i></a></li>\n            <li><a href=\"#!\"><i class=\"fa fa-instagram\" aria-hidden=\"true\"></i></a></li>\n            <li><a href=\"#!\"><i class=\"fa fa-shopping-bag\" aria-hidden=\"true\"></i></a></li>\n            <li><a class=\"search-trigger\" href=\"#!\" (click)=\"openOverlay('searchOverlay')\"><i class=\"fa fa-search\" aria-hidden=\"true\"></i></a></li>\n        </ul>\n    </nav>\n</header>\n<div id=\"menuOverlay\" class=\"overlay\">\n  <a class=\"closebtn\" (click)=\"closeOverlay('menuOverlay')\">&times;</a>\n  <div class=\"overlay-content\">\n    <a routerLink=\"/home\" (click)=\"closeOverlay('menuOverlay')\"><i class=\"fa fa-home\" aria-hidden=\"true\"></i> Home</a>\n    <a *ngFor=\"let routerCategory of categories\" routerLink=\"/category/{{ routerCategory.slug }}\" (click)=\"closeOverlay('menuOverlay')\"><i class=\"fa {{ routerCategory.description }}\" aria-hidden=\"true\"></i> {{ routerCategory.name }}</a>\n  </div>\n</div>\n\n<div class=\"parallax\">\n    <div class=\"parallax-logo\">\n        <a routerLink=\"/home\"><img src=\"../assets/images/logo.png\" alt=\"logo\"></a>\n    </div>\n    <h1>Len Vintage</h1>\n    <div class=\"parallax-to-content\">\n        <a href=\"#main\">\n            <i class=\"fa fa-arrow-down\" aria-hidden=\"true\"></i>\n        </a>\n    </div>\n</div>\n<main id=\"main\">\n        <div class=\"web-container\">\n            <div class=\"about\">\n<!--               About me-->\n                <img class=\"about-thumb\" src=\"assets/images/avatar.jpg\" alt=\"len\">\n                <h1>LEN vintage</h1>\n                <span>Kẹo thì ngọt. Len thì rối. Nước khó nắm bắt... Nhưng tất cả rồi sẽ ổn thôi </span>\n            </div>\n            <div class=\"web-wrapper\">\n<!--               Main content of website-->\n              <router-outlet></router-outlet>  \n            </div>\n            <div class=\"sidebar\">\n<!--               Sidebar components-->\n                <!--latest posts-->\n                <h1>Popular posts</h1>\n                \n                <div *ngFor=\"let post of randomPosts\" class=\"sidebar-card\">\n                    <div class=\"sidebar-card_thumb\">\n                        <a [routerLink]=\"['/post', post.id, post.slug]\"><img src=\"{{post.better_featured_image.media_details.sizes.thumbnail.source_url}}\" alt=\"{{post.title.rendered}}\"></a>\n                    </div>\n                    <div class=\"sidebar-card_info\">\n                        <div class=\"sidebar-card_title\">\n                            <a [routerLink]=\"['/post', post.id, post.slug]\">{{post.title.rendered}}</a>\n                        </div>\n                        <div class=\"sidebar-card_time\">\n                            {{post.date | date:\"dd/MM/yyyy\"}}\n                        </div>\n                    </div>\n                </div>\n                <!--Tag cloud-->\n                <h1>Tag Cloud</h1>\n                <div class=\"sidebar-tags\">\n                    <a *ngFor=\"let tag of tags\" routerLink=\"/tag/{{tag.id}}/{{tag.slug}}\">{{tag.name}}</a>\n                </div>\n            \n            </div>\n        </div>\n    </main>\n    \n\n<footer>\n    <div class=\"copyright\">Develop by <a href=\"http://linhho.net\">Linh Ho</a></div>\n    <div class=\"back-to-top\"><a href=\"#main\"><i class=\"fa fa-arrow-circle-up\" aria-hidden=\"true\"></i></a></div>\n</footer>"
+module.exports = "<header id=\"header\">\n    <nav>\n        <ul class=\"nav-menu\">\n            <li><a routerLink=\"/home\" routerLinkActive=\"is-active\" ><i class=\"fa fa-home\" aria-hidden=\"true\"></i> Home</a></li>\n            <li *ngFor=\"let routerCategory of categories\"><a routerLink=\"/category/{{ routerCategory.slug }}\" routerLinkActive=\"is-active\" ><i class=\"fa {{ routerCategory.description }}\" aria-hidden=\"true\"></i> {{ routerCategory.name }}</a></li>\n            <!--routerLink=\"/category/{{ routerCategory.slug }}\" routerLinkActive=\"active\"-->\n        </ul>\n        <ul class=\"menu-mobile\">\n            <a (click)=\"openOverlay('menuOverlay')\"><i class=\"fa fa-bars\" aria-hidden=\"true\"></i></a>\n        </ul>\n        \n        <ul class=\"nav-search\">\n            <li><a href=\"#!\"><i class=\"fa fa-facebook\" aria-hidden=\"true\"></i></a></li>\n            <li><a href=\"#!\"><i class=\"fa fa-instagram\" aria-hidden=\"true\"></i></a></li>\n            <li><a href=\"#!\"><i class=\"fa fa-shopping-bag\" aria-hidden=\"true\"></i></a></li>\n            <li><a class=\"search-trigger\" href=\"#!\" (click)=\"openOverlay('searchOverlay')\"><i class=\"fa fa-search\" aria-hidden=\"true\"></i></a></li>\n        </ul>\n    </nav>\n</header>\n<div id=\"menuOverlay\" class=\"overlay\">\n  <a class=\"closebtn\" (click)=\"closeOverlay('menuOverlay')\">&times;</a>\n  <div class=\"overlay-content\">\n    <a routerLink=\"/home\" (click)=\"closeOverlay('menuOverlay')\"><i class=\"fa fa-home\" aria-hidden=\"true\"></i> Home</a>\n    <a *ngFor=\"let routerCategory of categories\" routerLink=\"/category/{{ routerCategory.slug }}\" (click)=\"closeOverlay('menuOverlay')\"><i class=\"fa {{ routerCategory.description }}\" aria-hidden=\"true\"></i> {{ routerCategory.name }}</a>\n  </div>\n</div>\n\n<div class=\"parallax\">\n    <div class=\"parallax-logo\">\n        <a routerLink=\"/home\"><img src=\"../assets/images/logo.png\" alt=\"logo\"></a>\n    </div>\n    <h1>Len Vintage</h1>\n    <div class=\"parallax-to-content\">\n        <a (click)=\"scrollToDownMain()\">\n            <i class=\"fa fa-arrow-down\" aria-hidden=\"true\"></i>\n        </a>\n    </div>\n</div>\n<main id=\"main\">\n        <div class=\"web-container\">\n            <div class=\"about\">\n<!--               About me-->\n                <img class=\"about-thumb\" src=\"assets/images/avatar.jpg\" alt=\"len\">\n                <h1>LEN vintage</h1>\n                <span>Kẹo thì ngọt. Len thì rối. Nước khó nắm bắt... Nhưng tất cả rồi sẽ ổn thôi </span>\n            </div>\n            <div class=\"web-wrapper\">\n<!--               Main content of website-->\n              <router-outlet></router-outlet>  \n            </div>\n            <div class=\"sidebar\">\n<!--               Sidebar components-->\n                <!--latest posts-->\n                <h1>Popular posts</h1>\n                \n                <div *ngFor=\"let post of randomPosts\" class=\"sidebar-card\">\n                    <div class=\"sidebar-card_thumb\">\n                        <a [routerLink]=\"['/post', post.id, post.slug]\"><img src=\"{{post.better_featured_image.media_details.sizes.thumbnail.source_url}}\" alt=\"{{post.title.rendered}}\"></a>\n                    </div>\n                    <div class=\"sidebar-card_info\">\n                        <div class=\"sidebar-card_title\">\n                            <a [routerLink]=\"['/post', post.id, post.slug]\">{{post.title.rendered}}</a>\n                        </div>\n                        <div class=\"sidebar-card_time\">\n                            {{post.date | date:\"dd/MM/yyyy\"}}\n                        </div>\n                    </div>\n                </div>\n                <!--Tag cloud-->\n                <h1>Tag Cloud</h1>\n                <div class=\"sidebar-tags\">\n                    <a *ngFor=\"let tag of tags\" routerLink=\"/tag/{{tag.id}}/{{tag.slug}}\">{{tag.name}}</a>\n                </div>\n            \n            </div>\n        </div>\n    </main>\n    \n\n<footer>\n    <div class=\"copyright\">Develop by <a href=\"http://linhho.net\">Linh Ho</a></div>\n    <div class=\"back-to-top\"><a (click)=\"scrollToUpMain()\"><i class=\"fa fa-arrow-circle-up\" aria-hidden=\"true\"></i></a></div>\n</footer>"
 
 /***/ },
 /* 515 */
@@ -83648,7 +83720,7 @@ module.exports = "<div class=\"card\" *ngFor=\"let post of posts; let i = index\
 /* 517 */
 /***/ function(module, exports) {
 
-module.exports = "<div class=\"card\">\n    <div class=\"thumb-card\">\n        <a [routerLink]=\"['/post', id, slug]\"><img [src]=\"image\" [alt]=\"title\"></a>\n    </div>\n    <div class=\"info-card\">\n        <div class=\"info-card_left\"></div>\n        <div class=\"info-card_right\"></div>\n        <div class=\"category-card\">\n            <a href=\"#\"><i class=\"fa fa-book\" aria-hidden=\"true\"></i></a>\n        </div>\n    </div>\n    <div class=\"content-card\">\n        <div class=\"title-card\">\n            <a [routerLink]=\"['/post', id, slug]\">{{title}}</a>\n        </div>\n        <div class=\"postcontent-card\">\n            <span [innerHTML]=\"content\"></span>\n            <div class=\"bottom-card\">\n                <div class=\"time\">\n                    {{date | date:\"dd/MM/yyyy\"}} by <a [routerLink]=\"['/home']\">Len</a>\n                </div>\n                <div class=\"share-card\">\n                    <a href=\"#!\"><i class=\"fa fa-facebook\" aria-hidden=\"true\"></i></a>\n                    <a href=\"#!\"><i class=\"fa fa-google-plus\" aria-hidden=\"true\"></i></a>\n                    <a href=\"#!\"><i class=\"fa fa-twitter\" aria-hidden=\"true\"></i></a>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>"
+module.exports = "    <div class=\"card\">\n        <div class=\"thumb-card\">\n            <a [routerLink]=\"['/post', id, slug]\"><img [src]=\"image\" [alt]=\"title\"></a>\n        </div>\n        <div class=\"info-card\">\n            <div class=\"info-card_left\"></div>\n            <div class=\"info-card_right\"></div>\n            <div class=\"category-card\">\n                <a href=\"#\"><i class=\"fa fa-book\" aria-hidden=\"true\"></i></a>\n            </div>\n        </div>\n        <div class=\"content-card\">\n            <div class=\"title-card\">\n                <a [routerLink]=\"['/post', id, slug]\">{{title}}</a>\n            </div>\n            <div class=\"postcontent-card\">\n                <span [innerHTML]=\"content\"></span>\n                <div class=\"bottom-card\">\n                    <div class=\"time\">\n                        {{date | date:\"dd/MM/yyyy\"}} by <a [routerLink]=\"['/home']\">Len</a>\n                    </div>\n                    <div class=\"share-card\">\n                        <a href=\"#!\"><i class=\"fa fa-facebook\" aria-hidden=\"true\"></i></a>\n                        <a href=\"#!\"><i class=\"fa fa-google-plus\" aria-hidden=\"true\"></i></a>\n                        <a href=\"#!\"><i class=\"fa fa-twitter\" aria-hidden=\"true\"></i></a>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n"
 
 /***/ },
 /* 518 */

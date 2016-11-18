@@ -1,30 +1,30 @@
-<div class="card">
-    <div class="thumb-card">
-        <a [routerLink]="['/post', id, slug]"><img [src]="image" [alt]="title"></a>
-    </div>
-    <div class="info-card">
-        <div class="info-card_left"></div>
-        <div class="info-card_right"></div>
-        <div class="category-card">
-            <a href="#"><i class="fa fa-book" aria-hidden="true"></i></a>
+    <div class="card">
+        <div class="thumb-card">
+            <a [routerLink]="['/post', id, slug]"><img [src]="image" [alt]="title"></a>
         </div>
-    </div>
-    <div class="content-card">
-        <div class="title-card">
-            <a [routerLink]="['/post', id, slug]">{{title}}</a>
+        <div class="info-card">
+            <div class="info-card_left"></div>
+            <div class="info-card_right"></div>
+            <div class="category-card">
+                <a href="#"><i class="fa fa-book" aria-hidden="true"></i></a>
+            </div>
         </div>
-        <div class="postcontent-card">
-            <span [innerHTML]="content"></span>
-            <div class="bottom-card">
-                <div class="time">
-                    {{date | date:"dd/MM/yyyy"}} by <a [routerLink]="['/home']">Len</a>
-                </div>
-                <div class="share-card">
-                    <a href="#!"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                    <a href="#!"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
-                    <a href="#!"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+        <div class="content-card">
+            <div class="title-card">
+                <a [routerLink]="['/post', id, slug]">{{title}}</a>
+            </div>
+            <div class="postcontent-card">
+                <span [innerHTML]="content"></span>
+                <div class="bottom-card">
+                    <div class="time">
+                        {{date | date:"dd/MM/yyyy"}} by <a [routerLink]="['/home']">Len</a>
+                    </div>
+                    <div class="share-card">
+                        <a href="#!"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a href="#!"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                        <a href="#!"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
