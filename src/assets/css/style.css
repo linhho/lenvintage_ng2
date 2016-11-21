@@ -661,6 +661,7 @@ nav a:active {
 }
 .seach-card .desc {
     margin: 5px;
+    text-align: left;
 }
 .seach-card .more-link {
     display: none;

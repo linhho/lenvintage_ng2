@@ -52,7 +52,7 @@ export class PostComponent {
             this.content = data.content.rendered;
             this.link = data.link;
             this.scrollToMain();
-            this.resetDisqus();
+            this.ngAfterViewInit();
         });
     });
   }
@@ -66,7 +66,7 @@ export class PostComponent {
     }
   }
 
-    /**
+  /**
    * Reset disqus with new inputs.
    */
   resetDisqus() {
