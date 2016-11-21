@@ -52,24 +52,24 @@ export class PostComponent {
             this.content = data.content.rendered;
             this.link = data.link;
             this.scrollToMain();
-            this.reset();
+            this.resetDisqus();
         });
     });
   }
 
   ngAfterViewInit() {
     if ((<any>window).DISQUS === undefined) {
-      this.addScriptTag();
+      this.addDisqusScriptTag();
     }
     else {
-      this.reset();
+      this.resetDisqus();
     }
   }
 
     /**
    * Reset disqus with new inputs.
    */
-  reset() {
+  resetDisqus() {
     (<any>window).DISQUS.reset({
       reload: true,
       config: this.getConfig()
@@ -79,7 +79,7 @@ export class PostComponent {
   /**
    * Add disqus script to the document.
    */
-  addScriptTag() {
+  addDisqusScriptTag() {
     (<any>window).disqus_config = this.getConfig();
 
     let script = this.renderer.createElement(this.el.nativeElement, 'script');

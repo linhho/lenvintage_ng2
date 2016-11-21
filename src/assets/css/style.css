@@ -450,6 +450,10 @@ nav a:active {
     background-color: #00bcd4
 }
 
+.disqus_comment {
+    margin: 10px 10px;
+}
+
 .continue-reading {
     text-align: center
 }
@@ -788,7 +792,7 @@ nav a:active {
         color: #424242
     }
     .card .share-card a {
-        margin-left: 5px;
+        margin-left: 2px;
     }
     .overlay-content {
         position: relative;
