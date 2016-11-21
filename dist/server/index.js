@@ -315,8 +315,8 @@ var CategoryComponent = (function () {
     CategoryComponent.prototype.universalInit = function () {
         var _this = this;
         this.sub = this._route.params.subscribe(function (params) {
-            _this.postSlug = params['slug'];
-            _this.getData(_this.postSlug);
+            _this.categorySlug = params['slug'];
+            _this.getData(_this.categorySlug);
             _this.scrollToMain();
         });
     };
@@ -330,7 +330,7 @@ var CategoryComponent = (function () {
     };
     CategoryComponent.prototype.postLoadMore = function () {
         this.postNum += 5;
-        this.getData(this.postSlug);
+        this.getData(this.categorySlug);
     };
     CategoryComponent = __decorate([
         core_1.Component({
@@ -1216,6 +1216,7 @@ var core_1 = __webpack_require__(0);
 var shared_module_1 = __webpack_require__(3);
 var post_component_1 = __webpack_require__(9);
 var post_routing_module_1 = __webpack_require__(27);
+var postcategory_module_1 = __webpack_require__(4);
 var PostModule = (function () {
     function PostModule() {
     }
@@ -1223,7 +1224,8 @@ var PostModule = (function () {
         core_1.NgModule({
             imports: [
                 shared_module_1.SharedModule,
-                post_routing_module_1.PostRoutingModule
+                post_routing_module_1.PostRoutingModule,
+                postcategory_module_1.PostCategoryModule
             ],
             declarations: [
                 post_component_1.PostComponent
@@ -1406,7 +1408,7 @@ module.exports = "<header id=\"header\">\n    <nav>\n        <ul class=\"nav-men
 /* 35 */
 /***/ function(module, exports) {
 
-module.exports = "<div class=\"card\" *ngFor=\"let post of posts; let i = index\">\n    <template [ngIf]=\"i < postNum\">\n        <div class=\"thumb-card\">\n            <a [routerLink]=\"['/post', post.id, post.slug]\"><img src=\"{{post.better_featured_image.source_url}}\" alt=\"{{post.title.rendered}}\"></a>\n        </div>\n        <div class=\"info-card\">\n            <div class=\"info-card_left\"></div>\n            <div class=\"info-card_right\"></div>\n            <div class=\"category-card\">\n                <post-category [postId]=\"post.id\"></post-category>\n            </div>\n        </div>\n        <div class=\"content-card\">\n            <div class=\"title-card\">\n                <a [routerLink]=\"['/post', post.id, post.slug]\">{{post.title.rendered}}</a>\n            </div>\n            <div class=\"desc-card\">\n                <span [innerHTML]=\"post.excerpt.rendered\"></span>\n                <div class=\"continue-reading\">\n                    <a [routerLink]=\"['/post', post.id, post.slug]\">CONTINUE READING</a>\n                </div>\n                <div class=\"bottom-card\">\n                    <div class=\"time\">\n                        {{post.date | date:\"dd/MM/yyyy\"}} by <a [routerLink]=\"['/home']\">Len</a>\n                    </div>\n                    <div class=\"share-card\">\n                        <a href=\"https://www.facebook.com/sharer/sharer.php?u={{post.link}}\"><i class=\"fa fa-facebook\" aria-hidden=\"true\"></i></a>\n                        <a href=\"https://plus.google.com/share?url={{post.link}}\"><i class=\"fa fa-google-plus\" aria-hidden=\"true\"></i></a>\n                        <a href=\"https://twitter.com/home?status={{post.link}}\"><i class=\"fa fa-twitter\" aria-hidden=\"true\"></i></a>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </template>\n</div>\n\n<div class=\"load-more\" *ngIf=\"postNum <= postsLength\">\n    <a (click)=\"postLoadMore()\">Load more</a>\n</div>"
+module.exports = "<h1 class=\"tag-cloud\">#{{categorySlug}}</h1>\n<div class=\"card\" *ngFor=\"let post of posts; let i = index\">\n    <template [ngIf]=\"i < postNum\">\n        <div class=\"thumb-card\">\n            <a [routerLink]=\"['/post', post.id, post.slug]\"><img src=\"{{post.better_featured_image.source_url}}\" alt=\"{{post.title.rendered}}\"></a>\n        </div>\n        <div class=\"info-card\">\n            <div class=\"info-card_left\"></div>\n            <div class=\"info-card_right\"></div>\n            <div class=\"category-card\">\n                <post-category [postId]=\"post.id\"></post-category>\n            </div>\n        </div>\n        <div class=\"content-card\">\n            <div class=\"title-card\">\n                <a [routerLink]=\"['/post', post.id, post.slug]\">{{post.title.rendered}}</a>\n            </div>\n            <div class=\"desc-card\">\n                <span [innerHTML]=\"post.excerpt.rendered\"></span>\n                <div class=\"continue-reading\">\n                    <a [routerLink]=\"['/post', post.id, post.slug]\">CONTINUE READING</a>\n                </div>\n                <div class=\"bottom-card\">\n                    <div class=\"time\">\n                        {{post.date | date:\"dd/MM/yyyy\"}} by <a [routerLink]=\"['/home']\">Len</a>\n                    </div>\n                    <div class=\"share-card\">\n                        <a href=\"https://www.facebook.com/sharer/sharer.php?u={{post.link}}\"><i class=\"fa fa-facebook\" aria-hidden=\"true\"></i></a>\n                        <a href=\"https://plus.google.com/share?url={{post.link}}\"><i class=\"fa fa-google-plus\" aria-hidden=\"true\"></i></a>\n                        <a href=\"https://twitter.com/home?status={{post.link}}\"><i class=\"fa fa-twitter\" aria-hidden=\"true\"></i></a>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </template>\n</div>\n\n<div class=\"load-more\" *ngIf=\"postNum <= postsLength\">\n    <a (click)=\"postLoadMore()\">Load more</a>\n</div>"
 
 /***/ },
 /* 36 */
@@ -1418,7 +1420,7 @@ module.exports = "<div class=\"card\" *ngFor=\"let post of posts; let i = index\
 /* 37 */
 /***/ function(module, exports) {
 
-module.exports = "    <div class=\"card\">\n        <div class=\"thumb-card\">\n            <a [routerLink]=\"['/post', id, slug]\"><img [src]=\"image\" [alt]=\"title\"></a>\n        </div>\n        <div class=\"info-card\">\n            <div class=\"info-card_left\"></div>\n            <div class=\"info-card_right\"></div>\n            <div class=\"category-card\">\n                <a href=\"#\"><i class=\"fa fa-book\" aria-hidden=\"true\"></i></a>\n            </div>\n        </div>\n        <div class=\"content-card\">\n            <div class=\"title-card\">\n                <a [routerLink]=\"['/post', id, slug]\">{{title}}</a>\n            </div>\n            <div class=\"postcontent-card\">\n                <span [innerHTML]=\"content\"></span>\n                <div class=\"bottom-card\">\n                    <div class=\"time\">\n                        {{date | date:\"dd/MM/yyyy\"}} by <a [routerLink]=\"['/home']\">Len</a>\n                    </div>\n                    <div class=\"share-card\">\n                         <a href=\"https://www.facebook.com/sharer/sharer.php?u={{link}}\"><i class=\"fa fa-facebook\" aria-hidden=\"true\"></i></a>\n                        <a href=\"https://plus.google.com/share?url={{link}}\"><i class=\"fa fa-google-plus\" aria-hidden=\"true\"></i></a>\n                        <a href=\"https://twitter.com/home?status={{link}}\"><i class=\"fa fa-twitter\" aria-hidden=\"true\"></i></a>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <div class=\"disqus_comment\" id=\"disqus_thread\"></div>\n    </div>\n"
+module.exports = "    <div class=\"card\">\n        <div class=\"thumb-card\">\n            <a [routerLink]=\"['/post', id, slug]\"><img [src]=\"image\" [alt]=\"title\"></a>\n        </div>\n        <div class=\"info-card\">\n            <div class=\"info-card_left\"></div>\n            <div class=\"info-card_right\"></div>\n            <div class=\"category-card\">\n                <post-category [postId]=\"id\"></post-category>\n            </div>\n        </div>\n        <div class=\"content-card\">\n            <div class=\"title-card\">\n                <a [routerLink]=\"['/post', id, slug]\">{{title}}</a>\n            </div>\n            <div class=\"postcontent-card\">\n                <span [innerHTML]=\"content\"></span>\n                <div class=\"bottom-card\">\n                    <div class=\"time\">\n                        {{date | date:\"dd/MM/yyyy\"}} by <a [routerLink]=\"['/home']\">Len</a>\n                    </div>\n                    <div class=\"share-card\">\n                         <a href=\"https://www.facebook.com/sharer/sharer.php?u={{link}}\"><i class=\"fa fa-facebook\" aria-hidden=\"true\"></i></a>\n                        <a href=\"https://plus.google.com/share?url={{link}}\"><i class=\"fa fa-google-plus\" aria-hidden=\"true\"></i></a>\n                        <a href=\"https://twitter.com/home?status={{link}}\"><i class=\"fa fa-twitter\" aria-hidden=\"true\"></i></a>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <div class=\"disqus_comment\" id=\"disqus_thread\"></div>\n    </div>\n"
 
 /***/ },
 /* 38 */

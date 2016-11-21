@@ -12,7 +12,7 @@ export class CategoryComponent {
   posts: [Post];
   postsLength:number;
   postNum: number = 5;
-  postSlug:string;
+  categorySlug:string;
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
@@ -33,8 +33,8 @@ export class CategoryComponent {
   }
   universalInit() {
     this.sub = this._route.params.subscribe(params => {
-      this.postSlug = params['slug'];
-      this.getData(this.postSlug);
+      this.categorySlug = params['slug'];
+      this.getData(this.categorySlug);
       this.scrollToMain()
     });
   }
@@ -47,6 +47,6 @@ export class CategoryComponent {
   }
   postLoadMore() {
     this.postNum += 5;
-    this.getData(this.postSlug);
+    this.getData(this.categorySlug);
   }
 }
