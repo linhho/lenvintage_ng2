@@ -659,8 +659,9 @@ nav a:active {
     margin: 5px;
     font-family: 'Pattaya', sans-serif;
 }
-.seach-card .desc {
+.seach-card .desc p {
     margin: 5px;
+    margin-bottom: 15px;
     text-align: left;
 }
 .seach-card .more-link {

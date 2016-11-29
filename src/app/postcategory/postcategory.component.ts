@@ -13,9 +13,9 @@ export class PostCategoryComponent implements OnChanges {
     constructor( public model: ModelService) {}
 
     ngOnChanges(): void {
-        this.model.get('http://admin.lenvintage.com/wp-json/wp/v2/categories?post='+this.postId).subscribe(data => {
-            this.slug = data[0].slug;
-            this.desc = data[0].description; 
-        });
+            this.model.get('http://admin.lenvintage.com/wp-json/wp/v2/categories?post='+this.postId).subscribe(data => {
+                this.slug = data[0].slug;
+                this.desc = data[0].description; 
+            });
     }  
 }

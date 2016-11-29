@@ -93,7 +93,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var http_1 = __webpack_require__(39);
+var http_1 = __webpack_require__(40);
 var Observable_1 = __webpack_require__(41);
 __webpack_require__(43);
 __webpack_require__(42);
@@ -101,7 +101,7 @@ __webpack_require__(46);
 __webpack_require__(44);
 __webpack_require__(45);
 __webpack_require__(47);
-var cache_service_1 = __webpack_require__(10);
+var cache_service_1 = __webpack_require__(11);
 function hashCode(str) {
     var hash = 0;
     if (str.length === 0) {
@@ -186,9 +186,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var common_1 = __webpack_require__(12);
+var common_1 = __webpack_require__(13);
 var router_1 = __webpack_require__(1);
-var forms_1 = __webpack_require__(5);
+var forms_1 = __webpack_require__(6);
 var api_service_1 = __webpack_require__(2);
 var MODULES = [
     // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -222,6 +222,12 @@ exports.SharedModule = SharedModule;
 
 /***/ },
 /* 4 */
+/***/ function(module, exports) {
+
+module.exports = require("@angular/platform-browser");
+
+/***/ },
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -236,10 +242,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = __webpack_require__(0);
-var common_1 = __webpack_require__(12);
-var forms_1 = __webpack_require__(5);
+var common_1 = __webpack_require__(13);
+var forms_1 = __webpack_require__(6);
 var shared_module_1 = __webpack_require__(3);
-var postcategory_component_1 = __webpack_require__(29);
+var postcategory_component_1 = __webpack_require__(30);
 var PostCategoryModule = (function () {
     function PostCategoryModule() {
     }
@@ -263,19 +269,19 @@ exports.PostCategoryModule = PostCategoryModule;
 
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports) {
 
 module.exports = require("@angular/forms");
 
 /***/ },
-/* 6 */
+/* 7 */
 /***/ function(module, exports) {
 
 module.exports = require("angular2-universal/node");
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -292,11 +298,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = __webpack_require__(0);
 var router_1 = __webpack_require__(1);
 var api_service_1 = __webpack_require__(2);
+var platform_browser_1 = __webpack_require__(4);
 var CategoryComponent = (function () {
-    function CategoryComponent(_route, _router, model) {
+    function CategoryComponent(_route, _router, model, title) {
         this._route = _route;
         this._router = _router;
         this.model = model;
+        this.title = title;
         this.postNum = 5;
         this.universalInit();
     }
@@ -318,6 +326,8 @@ var CategoryComponent = (function () {
             _this.categorySlug = params['slug'];
             _this.getData(_this.categorySlug);
             _this.scrollToMain();
+            _this.title.getTitle();
+            _this.title.setTitle(params['slug'] + ' | LEN vintage');
         });
     };
     CategoryComponent.prototype.getData = function (postSlug) {
@@ -335,18 +345,18 @@ var CategoryComponent = (function () {
     CategoryComponent = __decorate([
         core_1.Component({
             selector: 'category',
-            template: __webpack_require__(35)
+            template: __webpack_require__(36)
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof router_1.ActivatedRoute !== 'undefined' && router_1.ActivatedRoute) === 'function' && _a) || Object, (typeof (_b = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _b) || Object, (typeof (_c = typeof api_service_1.ModelService !== 'undefined' && api_service_1.ModelService) === 'function' && _c) || Object])
+        __metadata('design:paramtypes', [(typeof (_a = typeof router_1.ActivatedRoute !== 'undefined' && router_1.ActivatedRoute) === 'function' && _a) || Object, (typeof (_b = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _b) || Object, (typeof (_c = typeof api_service_1.ModelService !== 'undefined' && api_service_1.ModelService) === 'function' && _c) || Object, (typeof (_d = typeof platform_browser_1.Title !== 'undefined' && platform_browser_1.Title) === 'function' && _d) || Object])
     ], CategoryComponent);
     return CategoryComponent;
-    var _a, _b, _c;
+    var _a, _b, _c, _d;
 }());
 exports.CategoryComponent = CategoryComponent;
 
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -363,19 +373,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = __webpack_require__(0);
 var api_service_1 = __webpack_require__(2);
 var router_1 = __webpack_require__(1);
+var platform_browser_1 = __webpack_require__(4);
 var HomeComponent = (function () {
-    function HomeComponent(_route, _router, model) {
+    function HomeComponent(_route, _router, model, title) {
         this._route = _route;
         this._router = _router;
         this.model = model;
+        this.title = title;
         this.postNum = 5;
         this.scrollToMain();
         this.universalInit();
+        title.getTitle();
+        title.setTitle('Home | LEN vintage');
     }
     HomeComponent.prototype.scrollToMain = function () {
         var ele = document.getElementById("main");
         setTimeout(function () {
-            var scrollStep = -window.scrollY / (ele.offsetTop / 15), scrollInterval = setInterval(function () {
+            var scrollStep = -window.scrollY / (ele.offsetTop / 25), scrollInterval = setInterval(function () {
                 if (window.scrollY > 0) {
                     window.scrollBy(0, scrollStep);
                 }
@@ -399,18 +413,18 @@ var HomeComponent = (function () {
     HomeComponent = __decorate([
         core_1.Component({
             selector: 'home',
-            template: __webpack_require__(36)
+            template: __webpack_require__(37)
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof router_1.ActivatedRoute !== 'undefined' && router_1.ActivatedRoute) === 'function' && _a) || Object, (typeof (_b = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _b) || Object, (typeof (_c = typeof api_service_1.ModelService !== 'undefined' && api_service_1.ModelService) === 'function' && _c) || Object])
+        __metadata('design:paramtypes', [(typeof (_a = typeof router_1.ActivatedRoute !== 'undefined' && router_1.ActivatedRoute) === 'function' && _a) || Object, (typeof (_b = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _b) || Object, (typeof (_c = typeof api_service_1.ModelService !== 'undefined' && api_service_1.ModelService) === 'function' && _c) || Object, (typeof (_d = typeof platform_browser_1.Title !== 'undefined' && platform_browser_1.Title) === 'function' && _d) || Object])
     ], HomeComponent);
     return HomeComponent;
-    var _a, _b, _c;
+    var _a, _b, _c, _d;
 }());
 exports.HomeComponent = HomeComponent;
 
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -427,13 +441,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = __webpack_require__(0);
 var router_1 = __webpack_require__(1);
 var api_service_1 = __webpack_require__(2);
+var platform_browser_1 = __webpack_require__(4);
 var PostComponent = (function () {
-    function PostComponent(_route, _router, model, el, renderer) {
+    function PostComponent(_route, _router, model, el, renderer, titlePage) {
         this._route = _route;
         this._router = _router;
         this.model = model;
         this.el = el;
         this.renderer = renderer;
+        this.titlePage = titlePage;
         this.universalInit();
     }
     PostComponent.prototype.scrollToMain = function () {
@@ -453,8 +469,6 @@ var PostComponent = (function () {
         this.scrollToMain();
         this.sub = this._route.params.subscribe(function (params) {
             _this.model.get('http://admin.lenvintage.com/wp-json/wp/v2/posts/' + params['id']).subscribe(function (data) {
-                _this.post = data;
-                console.log(_this.post);
                 _this.id = data.id;
                 _this.image = data.better_featured_image.source_url;
                 _this.title = data.title.rendered;
@@ -462,8 +476,9 @@ var PostComponent = (function () {
                 _this.date = data.date;
                 _this.content = data.content.rendered;
                 _this.link = data.link;
+                _this.titlePage.setTitle(_this.title + ' | LEN vintage');
                 _this.scrollToMain();
-                _this.ngAfterViewInit();
+                _this.resetDisqus();
             });
         });
     };
@@ -474,6 +489,16 @@ var PostComponent = (function () {
         else {
             this.resetDisqus();
         }
+    };
+    /**
+     * Get disqus config
+     */
+    PostComponent.prototype.getConfig = function () {
+        var _self = this;
+        return function () {
+            this.page.url = this.link || window.location.href;
+            this.page.identifier = this.link || window.location.href;
+        };
     };
     /**
      * Reset disqus with new inputs.
@@ -495,31 +520,21 @@ var PostComponent = (function () {
         script.type = 'text/javascript';
         script.setAttribute('data-timestamp', new Date().getTime().toString());
     };
-    /**
-     * Get disqus config
-     */
-    PostComponent.prototype.getConfig = function () {
-        var _self = this;
-        return function () {
-            this.page.url = this.link || window.location.href;
-            this.page.identifier = this.id + "/" + this.slug;
-        };
-    };
     PostComponent = __decorate([
         core_1.Component({
             selector: 'post',
-            template: __webpack_require__(37)
+            template: __webpack_require__(38)
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof router_1.ActivatedRoute !== 'undefined' && router_1.ActivatedRoute) === 'function' && _a) || Object, (typeof (_b = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _b) || Object, (typeof (_c = typeof api_service_1.ModelService !== 'undefined' && api_service_1.ModelService) === 'function' && _c) || Object, (typeof (_d = typeof core_1.ElementRef !== 'undefined' && core_1.ElementRef) === 'function' && _d) || Object, (typeof (_e = typeof core_1.Renderer !== 'undefined' && core_1.Renderer) === 'function' && _e) || Object])
+        __metadata('design:paramtypes', [(typeof (_a = typeof router_1.ActivatedRoute !== 'undefined' && router_1.ActivatedRoute) === 'function' && _a) || Object, (typeof (_b = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _b) || Object, (typeof (_c = typeof api_service_1.ModelService !== 'undefined' && api_service_1.ModelService) === 'function' && _c) || Object, (typeof (_d = typeof core_1.ElementRef !== 'undefined' && core_1.ElementRef) === 'function' && _d) || Object, (typeof (_e = typeof core_1.Renderer !== 'undefined' && core_1.Renderer) === 'function' && _e) || Object, (typeof (_f = typeof platform_browser_1.Title !== 'undefined' && platform_browser_1.Title) === 'function' && _f) || Object])
     ], PostComponent);
     return PostComponent;
-    var _a, _b, _c, _d, _e;
+    var _a, _b, _c, _d, _e, _f;
 }());
 exports.PostComponent = PostComponent;
 
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -622,7 +637,7 @@ exports.CacheService = CacheService;
 
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -682,7 +697,7 @@ var TagComponent = (function () {
     TagComponent = __decorate([
         core_1.Component({
             selector: 'tag',
-            template: __webpack_require__(38)
+            template: __webpack_require__(39)
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof router_1.ActivatedRoute !== 'undefined' && router_1.ActivatedRoute) === 'function' && _a) || Object, (typeof (_b = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _b) || Object, (typeof (_c = typeof api_service_1.ModelService !== 'undefined' && api_service_1.ModelService) === 'function' && _c) || Object])
     ], TagComponent);
@@ -693,13 +708,13 @@ exports.TagComponent = TagComponent;
 
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports) {
 
 module.exports = require("@angular/common");
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -714,22 +729,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 // Fix Material Support
-var platform_browser_1 = __webpack_require__(40);
+var platform_browser_1 = __webpack_require__(4);
 function universalMaterialSupports(eventName) { return Boolean(this.isCustomEvent(eventName)); }
 platform_browser_1.__platform_browser_private__.HammerGesturesPlugin.prototype.supports = universalMaterialSupports;
 // End Fix Material Support
 var core_1 = __webpack_require__(0);
-var forms_1 = __webpack_require__(5);
-var node_1 = __webpack_require__(6); // for AoT we need to manually split universal packages
+var forms_1 = __webpack_require__(6);
+var node_1 = __webpack_require__(7); // for AoT we need to manually split universal packages
 var shared_module_1 = __webpack_require__(3);
-var home_module_1 = __webpack_require__(26);
-var category_module_1 = __webpack_require__(24);
-var app_component_1 = __webpack_require__(22);
-var app_routing_module_1 = __webpack_require__(21);
-var cache_service_1 = __webpack_require__(10);
+var home_module_1 = __webpack_require__(27);
+var category_module_1 = __webpack_require__(25);
+var app_component_1 = __webpack_require__(23);
+var app_routing_module_1 = __webpack_require__(22);
+var cache_service_1 = __webpack_require__(11);
 // import * as LRU from 'modern-lru';
-var post_module_1 = __webpack_require__(28);
-var tag_module_1 = __webpack_require__(31);
+var post_module_1 = __webpack_require__(29);
+var tag_module_1 = __webpack_require__(32);
 function getLRU(lru) {
     // use LRU for node
     // return lru || new LRU(10);
@@ -791,14 +806,14 @@ exports.MainModule = MainModule;
 
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 "use strict";
 // Our API for demos only
-var db_1 = __webpack_require__(33);
-var cache_1 = __webpack_require__(32);
+var db_1 = __webpack_require__(34);
+var cache_1 = __webpack_require__(33);
 // you would use cookies/token etc
 var USER_ID = 'f9d98cf1-1b96-464e-8755-bcc2a5c09077'; // hardcoded as an example
 // Our API for demos only
@@ -821,43 +836,43 @@ exports.serverApi = serverApi;
 
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports) {
 
 module.exports = require("angular2-express-engine");
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports) {
 
 module.exports = require("angular2-universal-polyfills");
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports) {
 
 module.exports = require("body-parser");
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports) {
 
 module.exports = require("cookie-parser");
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports) {
 
 module.exports = require("express");
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports) {
 
 module.exports = require("path");
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -893,7 +908,7 @@ exports.AppRoutingModule = AppRoutingModule;
 
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -909,13 +924,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = __webpack_require__(0);
 var api_service_1 = __webpack_require__(2);
+var platform_browser_1 = __webpack_require__(4);
 var AppComponent = (function () {
-    function AppComponent(model) {
+    function AppComponent(model, title) {
         this.model = model;
+        this.title = title;
         this.categories = [];
         this.randomPosts = [];
         this.searchPosts = [];
         this.tags = [];
+        title.getTitle();
+        title.setTitle('LEN vintage');
         // we need the data synchronously for the client to set the server response
         // we create another method so we have more control for testing
         this.universalInit();
@@ -927,9 +946,6 @@ var AppComponent = (function () {
         this.getTag();
         //random posts
         this.getPostRandom();
-        //
-        //search
-        this.getSearchData();
     };
     //category data
     AppComponent.prototype.getCategory = function () {
@@ -958,7 +974,7 @@ var AppComponent = (function () {
     //search data
     AppComponent.prototype.getSearchData = function () {
         var _this = this;
-        this.model.get('http://admin.lenvintage.com/wp-json/wp/v2/posts?search=' + this.searchKey).subscribe(function (data) {
+        this.model.get('http://admin.lenvintage.com/wp-json/wp/v2/posts?filter[s]=' + this.searchKey).subscribe(function (data) {
             _this.searchPosts = data;
         });
     };
@@ -975,7 +991,7 @@ var AppComponent = (function () {
     AppComponent.prototype.scrollToUpMain = function () {
         var ele = document.getElementById("main");
         setTimeout(function () {
-            var scrollStep = -window.scrollY / (ele.offsetTop / 15), scrollInterval = setInterval(function () {
+            var scrollStep = -window.scrollY / (ele.offsetTop / 20), scrollInterval = setInterval(function () {
                 if (window.scrollY > ele.offsetTop) {
                     window.scrollBy(0, scrollStep);
                 }
@@ -987,7 +1003,7 @@ var AppComponent = (function () {
     AppComponent.prototype.scrollToDownMain = function () {
         var ele = document.getElementById("main");
         setTimeout(function () {
-            var scrollStep = ele.offsetTop / (window.scrollY + 100 / 15), scrollInterval = setInterval(function () {
+            var scrollStep = ele.offsetTop / (window.scrollY + 100 / 10), scrollInterval = setInterval(function () {
                 if (window.scrollY < ele.offsetTop) {
                     window.scrollBy(0, scrollStep);
                 }
@@ -999,18 +1015,18 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         core_1.Component({
             selector: 'len-app',
-            template: __webpack_require__(34)
+            template: __webpack_require__(35)
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof api_service_1.ModelService !== 'undefined' && api_service_1.ModelService) === 'function' && _a) || Object])
+        __metadata('design:paramtypes', [(typeof (_a = typeof api_service_1.ModelService !== 'undefined' && api_service_1.ModelService) === 'function' && _a) || Object, (typeof (_b = typeof platform_browser_1.Title !== 'undefined' && platform_browser_1.Title) === 'function' && _b) || Object])
     ], AppComponent);
     return AppComponent;
-    var _a;
+    var _a, _b;
 }());
 exports.AppComponent = AppComponent;
 
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1026,7 +1042,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = __webpack_require__(0);
 var router_1 = __webpack_require__(1);
-var category_component_1 = __webpack_require__(7);
+var category_component_1 = __webpack_require__(8);
 var CategoryRoutingModule = (function () {
     function CategoryRoutingModule() {
     }
@@ -1046,7 +1062,7 @@ exports.CategoryRoutingModule = CategoryRoutingModule;
 
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1062,9 +1078,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = __webpack_require__(0);
 var shared_module_1 = __webpack_require__(3);
-var category_component_1 = __webpack_require__(7);
-var category_routing_module_1 = __webpack_require__(23);
-var postcategory_module_1 = __webpack_require__(4);
+var category_component_1 = __webpack_require__(8);
+var category_routing_module_1 = __webpack_require__(24);
+var postcategory_module_1 = __webpack_require__(5);
 var CategoryModule = (function () {
     function CategoryModule() {
     }
@@ -1087,7 +1103,7 @@ exports.CategoryModule = CategoryModule;
 
 
 /***/ },
-/* 25 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1103,7 +1119,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = __webpack_require__(0);
 var router_1 = __webpack_require__(1);
-var home_component_1 = __webpack_require__(8);
+var home_component_1 = __webpack_require__(9);
 var HomeRoutingModule = (function () {
     function HomeRoutingModule() {
     }
@@ -1123,7 +1139,7 @@ exports.HomeRoutingModule = HomeRoutingModule;
 
 
 /***/ },
-/* 26 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1139,9 +1155,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = __webpack_require__(0);
 var shared_module_1 = __webpack_require__(3);
-var home_component_1 = __webpack_require__(8);
-var home_routing_module_1 = __webpack_require__(25);
-var postcategory_module_1 = __webpack_require__(4);
+var home_component_1 = __webpack_require__(9);
+var home_routing_module_1 = __webpack_require__(26);
+var postcategory_module_1 = __webpack_require__(5);
 var HomeModule = (function () {
     function HomeModule() {
     }
@@ -1164,7 +1180,7 @@ exports.HomeModule = HomeModule;
 
 
 /***/ },
-/* 27 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1180,7 +1196,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = __webpack_require__(0);
 var router_1 = __webpack_require__(1);
-var post_component_1 = __webpack_require__(9);
+var post_component_1 = __webpack_require__(10);
 var PostRoutingModule = (function () {
     function PostRoutingModule() {
     }
@@ -1200,7 +1216,7 @@ exports.PostRoutingModule = PostRoutingModule;
 
 
 /***/ },
-/* 28 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1216,9 +1232,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = __webpack_require__(0);
 var shared_module_1 = __webpack_require__(3);
-var post_component_1 = __webpack_require__(9);
-var post_routing_module_1 = __webpack_require__(27);
-var postcategory_module_1 = __webpack_require__(4);
+var post_component_1 = __webpack_require__(10);
+var post_routing_module_1 = __webpack_require__(28);
+var postcategory_module_1 = __webpack_require__(5);
 var PostModule = (function () {
     function PostModule() {
     }
@@ -1241,7 +1257,7 @@ exports.PostModule = PostModule;
 
 
 /***/ },
-/* 29 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1286,7 +1302,7 @@ exports.PostCategoryComponent = PostCategoryComponent;
 
 
 /***/ },
-/* 30 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1302,7 +1318,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = __webpack_require__(0);
 var router_1 = __webpack_require__(1);
-var tag_component_1 = __webpack_require__(11);
+var tag_component_1 = __webpack_require__(12);
 var TagRoutingModule = (function () {
     function TagRoutingModule() {
     }
@@ -1322,7 +1338,7 @@ exports.TagRoutingModule = TagRoutingModule;
 
 
 /***/ },
-/* 31 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1338,9 +1354,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = __webpack_require__(0);
 var shared_module_1 = __webpack_require__(3);
-var tag_component_1 = __webpack_require__(11);
-var tag_routing_module_1 = __webpack_require__(30);
-var postcategory_module_1 = __webpack_require__(4);
+var tag_component_1 = __webpack_require__(12);
+var tag_routing_module_1 = __webpack_require__(31);
+var postcategory_module_1 = __webpack_require__(5);
 var TagModule = (function () {
     function TagModule() {
     }
@@ -1363,7 +1379,7 @@ exports.TagModule = TagModule;
 
 
 /***/ },
-/* 32 */
+/* 33 */
 /***/ function(module, exports) {
 
 "use strict";
@@ -1386,7 +1402,7 @@ exports.fakeDemoRedisCache = {
 
 
 /***/ },
-/* 33 */
+/* 34 */
 /***/ function(module, exports) {
 
 "use strict";
@@ -1401,46 +1417,40 @@ exports.fakeDataBase = {
 
 
 /***/ },
-/* 34 */
-/***/ function(module, exports) {
-
-module.exports = "<header id=\"header\">\n    <nav>\n        <ul class=\"nav-menu\">\n            <li><a routerLink=\"/home\" routerLinkActive=\"is-active\" ><i class=\"fa fa-home\" aria-hidden=\"true\"></i> Home</a></li>\n            <li *ngFor=\"let routerCategory of categories\"><a routerLink=\"/category/{{ routerCategory.slug }}\" routerLinkActive=\"is-active\" ><i class=\"fa {{ routerCategory.description }}\" aria-hidden=\"true\"></i> {{ routerCategory.name }}</a></li>\n        </ul>\n        <ul class=\"menu-mobile\">\n            <a (click)=\"openOverlay('menuOverlay')\"><i class=\"fa fa-bars\" aria-hidden=\"true\"></i></a>\n        </ul>\n        \n        <ul class=\"nav-search\">\n            <li><a href=\"http://goo.gl/v9Rso8\"><i class=\"fa fa-facebook\" aria-hidden=\"true\"></i></a></li>\n            <li><a href=\"http://goo.gl/Md0yud\"><i class=\"fa fa-instagram\" aria-hidden=\"true\"></i></a></li>\n            <li><a href=\"http://goo.gl/e7PosF\"><i class=\"fa fa-shopping-bag\" aria-hidden=\"true\"></i></a></li>\n            <li><a class=\"search-trigger\" (click)=\"openOverlay('searchOverlay')\"><i class=\"fa fa-search\" aria-hidden=\"true\"></i></a></li>\n        </ul>\n    </nav>\n</header>\n<!--menu overlay-->\n<div id=\"menuOverlay\" class=\"overlay\">\n  <a class=\"closebtn\" (click)=\"closeOverlay('menuOverlay')\">&times;</a>\n  <div class=\"overlay-content\">\n    <a routerLink=\"/home\" (click)=\"closeOverlay('menuOverlay')\"><i class=\"fa fa-home\" aria-hidden=\"true\"></i> Home</a>\n    <a *ngFor=\"let routerCategory of categories\" routerLink=\"/category/{{ routerCategory.slug }}\" (click)=\"closeOverlay('menuOverlay')\"><i class=\"fa {{ routerCategory.description }}\" aria-hidden=\"true\"></i> {{ routerCategory.name }}</a>\n  </div>\n</div>\n<!---->\n<!--search overlay-->\n<div id=\"searchOverlay\" class=\"overlay\">\n  <a class=\"closebtn\" (click)=\"closeOverlay('searchOverlay')\">&times;</a>\n  <div class=\"overlay-content\">\n    <input class=\"search-input\" type=\"text\" placeholder=\"Search...\" name=\"search\" [(ngModel)]=\"searchKey\" (keydown.enter)=\"getSearchData()\">\n    <div class=\"search-content\" >\n        <div *ngFor=\"let post of searchPosts\" class=\"seach-card\">\n            <a class=\"title\" [routerLink]=\"['/post', post.id, post.slug]\"  (click)=\"closeOverlay('searchOverlay')\">{{post.title.rendered}}</a>\n            <span class=\"desc\" [innerHTML]=\"post.excerpt.rendered\"></span>\n        </div>\n    </div>\n  </div>\n</div>\n\n<div class=\"parallax\">\n    <div class=\"parallax-logo\">\n        <a routerLink=\"/home\"><img src=\"../assets/images/logo.png\" alt=\"logo\"></a>\n    </div>\n    <h1>Len Vintage</h1>\n    <div class=\"parallax-to-content\">\n        <a (click)=\"scrollToDownMain()\">\n            <i class=\"fa fa-arrow-down\" aria-hidden=\"true\"></i>\n        </a>\n    </div>\n</div>\n<main id=\"main\">\n        <div class=\"web-container\">\n            <div class=\"about\">\n<!--               About me-->\n                <img class=\"about-thumb\" src=\"assets/images/avatar.jpg\" alt=\"len\">\n                <h1>LEN vintage</h1>\n                <span>Kẹo thì ngọt. Len thì rối. Nước khó nắm bắt... Nhưng tất cả rồi sẽ ổn thôi </span>\n            </div>\n            <div class=\"web-wrapper\">\n<!--               Main content of website-->\n              <router-outlet></router-outlet>  \n            </div>\n            <div class=\"sidebar\">\n<!--               Sidebar components-->\n                <!--latest posts-->\n                <h1>Popular posts</h1>\n                \n                <div *ngFor=\"let post of randomPosts\" class=\"sidebar-card\">\n                    <div class=\"sidebar-card_thumb\">\n                        <a [routerLink]=\"['/post', post.id, post.slug]\"><img src=\"{{post.better_featured_image.media_details.sizes.thumbnail.source_url}}\" alt=\"{{post.title.rendered}}\"></a>\n                    </div>\n                    <div class=\"sidebar-card_info\">\n                        <div class=\"sidebar-card_title\">\n                            <a [routerLink]=\"['/post', post.id, post.slug]\">{{post.title.rendered}}</a>\n                        </div>\n                        <div class=\"sidebar-card_time\">\n                            {{post.date | date:\"dd/MM/yyyy\"}}\n                        </div>\n                    </div>\n                </div>\n                <!--Tag cloud-->\n                <h1>Tag Cloud</h1>\n                <div class=\"sidebar-tags\">\n                    <a *ngFor=\"let tag of tags\" routerLink=\"/tag/{{tag.slug}}\">{{tag.name}}</a>\n                </div>\n            \n            </div>\n        </div>\n    </main>\n    \n\n<footer>\n    <div class=\"copyright\">Beta|Develop by <a href=\"http://linhho.net\">Linh Ho</a></div>\n    <div class=\"back-to-top\"><a (click)=\"scrollToUpMain()\"><i class=\"fa fa-arrow-circle-up\" aria-hidden=\"true\"></i></a></div>\n</footer>"
-
-/***/ },
 /* 35 */
 /***/ function(module, exports) {
 
-module.exports = "<h1 class=\"tag-cloud\">#{{categorySlug}}</h1>\n<div class=\"card\" *ngFor=\"let post of posts; let i = index\">\n    <template [ngIf]=\"i < postNum\">\n        <div class=\"thumb-card\">\n            <a [routerLink]=\"['/post', post.id, post.slug]\"><img [src]=\"post.better_featured_image.source_url\" [alt]=\"post.title.rendered\"></a>\n        </div>\n        <div class=\"info-card\">\n            <div class=\"info-card_left\"></div>\n            <div class=\"info-card_right\"></div>\n            <div class=\"category-card\">\n                <post-category [postId]=\"post.id\"></post-category>\n            </div>\n        </div>\n        <div class=\"content-card\">\n            <div class=\"title-card\">\n                <a [routerLink]=\"['/post', post.id, post.slug]\">{{post.title.rendered}}</a>\n            </div>\n            <div class=\"desc-card\">\n                <span [innerHTML]=\"post.excerpt.rendered\"></span>\n                <div class=\"continue-reading\">\n                    <a [routerLink]=\"['/post', post.id, post.slug]\">CONTINUE READING</a>\n                </div>\n                <div class=\"bottom-card\">\n                    <div class=\"time\">\n                        {{post.date | date:\"dd/MM/yyyy\"}} by <a [routerLink]=\"['/home']\">Len</a>\n                    </div>\n                    <div class=\"share-card\">\n                        <a href=\"https://www.facebook.com/sharer/sharer.php?u={{post.link}}\"><i class=\"fa fa-facebook\" aria-hidden=\"true\"></i></a>\n                        <a href=\"https://plus.google.com/share?url={{post.link}}\"><i class=\"fa fa-google-plus\" aria-hidden=\"true\"></i></a>\n                        <a href=\"https://twitter.com/home?status={{post.link}}\"><i class=\"fa fa-twitter\" aria-hidden=\"true\"></i></a>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </template>\n</div>\n\n<div class=\"load-more\" *ngIf=\"postNum <= postsLength\">\n    <a (click)=\"postLoadMore()\">Load more</a>\n</div>"
+module.exports = "<header id=\"header\">\n    <nav>\n        <ul class=\"nav-menu\">\n            <li><a routerLink=\"/home\" routerLinkActive=\"is-active\" ><i class=\"fa fa-home\" aria-hidden=\"true\"></i> Home</a></li>\n            <li *ngFor=\"let routerCategory of categories\"><a routerLink=\"/category/{{ routerCategory.slug }}\" routerLinkActive=\"is-active\" ><i class=\"fa {{ routerCategory.description }}\" aria-hidden=\"true\"></i> {{ routerCategory.name }}</a></li>\n        </ul>\n        <ul class=\"menu-mobile\">\n            <a (click)=\"openOverlay('menuOverlay')\"><i class=\"fa fa-bars\" aria-hidden=\"true\"></i></a>\n        </ul>\n        \n        <ul class=\"nav-search\">\n            <li><a href=\"http://goo.gl/v9Rso8\"><i class=\"fa fa-facebook\" aria-hidden=\"true\"></i></a></li>\n            <li><a href=\"http://goo.gl/Md0yud\"><i class=\"fa fa-instagram\" aria-hidden=\"true\"></i></a></li>\n            <li><a href=\"http://goo.gl/e7PosF\"><i class=\"fa fa-shopping-bag\" aria-hidden=\"true\"></i></a></li>\n            <li><a class=\"search-trigger\" (click)=\"openOverlay('searchOverlay'); getSearchData()\"><i class=\"fa fa-search\" aria-hidden=\"true\"></i></a></li>\n        </ul>\n    </nav>\n</header>\n<!--menu overlay-->\n<div id=\"menuOverlay\" class=\"overlay\">\n  <a class=\"closebtn\" (click)=\"closeOverlay('menuOverlay')\">&times;</a>\n  <div class=\"overlay-content\">\n    <a routerLink=\"/home\" (click)=\"closeOverlay('menuOverlay')\"><i class=\"fa fa-home\" aria-hidden=\"true\"></i> Home</a>\n    <a *ngFor=\"let routerCategory of categories\" routerLink=\"/category/{{ routerCategory.slug }}\" (click)=\"closeOverlay('menuOverlay')\"><i class=\"fa {{ routerCategory.description }}\" aria-hidden=\"true\"></i> {{ routerCategory.name }}</a>\n  </div>\n</div>\n<!---->\n<!--search overlay-->\n<div id=\"searchOverlay\" class=\"overlay\">\n  <a class=\"closebtn\" (click)=\"closeOverlay('searchOverlay')\">&times;</a>\n  <div class=\"overlay-content\">\n    <input class=\"search-input\" type=\"text\" placeholder=\"Search...\" name=\"search\" [(ngModel)]=\"searchKey\" (keydown.enter)=\"getSearchData()\">\n    <div class=\"search-content\" >\n        <div *ngFor=\"let post of searchPosts\" class=\"seach-card\">\n            <a class=\"title\" [routerLink]=\"['/post', post.id, post.slug]\"  (click)=\"closeOverlay('searchOverlay')\">{{post.title.rendered}}</a>\n            <span class=\"desc\" [innerHTML]=\"post.excerpt.rendered\"></span>\n        </div>\n    </div>\n  </div>\n</div>\n\n<div class=\"parallax\">\n    <div class=\"parallax-logo\">\n        <a routerLink=\"/home\"><img src=\"../assets/images/logo.png\" alt=\"logo\"></a>\n    </div>\n    <h1>Len Vintage</h1>\n    <div class=\"parallax-to-content\">\n        <a (click)=\"scrollToDownMain()\">\n            <i class=\"fa fa-arrow-down\" aria-hidden=\"true\"></i>\n        </a>\n    </div>\n</div>\n<main id=\"main\">\n        <div class=\"web-container\">\n            <div class=\"about\">\n<!--               About me-->\n                <img class=\"about-thumb\" src=\"assets/images/avatar.jpg\" alt=\"len\">\n                <h1>LEN vintage</h1>\n                <span>Kẹo thì ngọt. Len thì rối. Nước khó nắm bắt... Nhưng tất cả rồi sẽ ổn thôi </span>\n            </div>\n            <div class=\"web-wrapper\">\n<!--               Main content of website-->\n              <router-outlet></router-outlet>  \n            </div>\n            <div class=\"sidebar\">\n<!--               Sidebar components-->\n                <!--latest posts-->\n                <h1>Popular posts</h1>\n                \n                <div *ngFor=\"let post of randomPosts\" class=\"sidebar-card\">\n                    <div class=\"sidebar-card_thumb\">\n                        <a [routerLink]=\"['/post', post.id, post.slug]\"><img src=\"{{post.better_featured_image.media_details.sizes.thumbnail.source_url}}\" alt=\"{{post.title.rendered}}\"></a>\n                    </div>\n                    <div class=\"sidebar-card_info\">\n                        <div class=\"sidebar-card_title\">\n                            <a [routerLink]=\"['/post', post.id, post.slug]\">{{post.title.rendered}}</a>\n                        </div>\n                        <div class=\"sidebar-card_time\">\n                            {{post.date | date:\"dd/MM/yyyy\"}}\n                        </div>\n                    </div>\n                </div>\n                <!--Tag cloud-->\n                <h1>Tag Cloud</h1>\n                <div class=\"sidebar-tags\">\n                    <a *ngFor=\"let tag of tags\" routerLink=\"/tag/{{tag.slug}}\">{{tag.name}}</a>\n                </div>\n            \n            </div>\n        </div>\n    </main>\n    \n\n<footer>\n    <div class=\"copyright\">Beta|Develop by <a href=\"http://linhho.net\">Linh Ho</a></div>\n    <div class=\"back-to-top\"><a (click)=\"scrollToUpMain()\"><i class=\"fa fa-arrow-circle-up\" aria-hidden=\"true\"></i></a></div>\n</footer>"
 
 /***/ },
 /* 36 */
 /***/ function(module, exports) {
 
-module.exports = "<div class=\"card\" *ngFor=\"let post of posts; let i = index\">\n    <template [ngIf]=\"i < postNum\">\n        <div class=\"thumb-card\">\n            <a [routerLink]=\"['/post', post.id, post.slug]\"><img [src]=\"post.better_featured_image.source_url\" [alt]=\"post.title.rendered\"></a>\n        </div>\n        <div class=\"info-card\">\n            <div class=\"info-card_left\"></div>\n            <div class=\"info-card_right\"></div>\n            <div class=\"category-card\">\n                <post-category [postId]=\"post.id\"></post-category>\n            </div>\n        </div>\n        <div class=\"content-card\">\n            <div class=\"title-card\">\n                <a [routerLink]=\"['/post', post.id, post.slug]\">{{post.title.rendered}}</a>\n            </div>\n            <div class=\"desc-card\">\n                <span [innerHTML]=\"post.excerpt.rendered\"></span>\n                <div class=\"continue-reading\">\n                    <a [routerLink]=\"['/post', post.id, post.slug]\">CONTINUE READING</a>\n                </div>\n                <div class=\"bottom-card\">\n                    <div class=\"time\">\n                        {{post.date | date:\"dd/MM/yyyy\"}} by <a [routerLink]=\"['/home']\">Len</a>\n                    </div>\n                    <div class=\"share-card\">\n                        <a href=\"https://www.facebook.com/sharer/sharer.php?u={{post.link}}\"><i class=\"fa fa-facebook\" aria-hidden=\"true\"></i></a>\n                        <a href=\"https://plus.google.com/share?url={{post.link}}\"><i class=\"fa fa-google-plus\" aria-hidden=\"true\"></i></a>\n                        <a href=\"https://twitter.com/home?status={{post.link}}\"><i class=\"fa fa-twitter\" aria-hidden=\"true\"></i></a>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </template>\n</div>\n\n<div class=\"load-more\" *ngIf=\"postNum <= postsLength\">\n    <a (click)=\"postLoadMore()\">Load more</a>\n</div>"
+module.exports = "<h1 class=\"tag-cloud\">#{{categorySlug}}</h1>\n<div class=\"card\" *ngFor=\"let post of posts; let i = index\">\n    <template [ngIf]=\"i < postNum\">\n        <div class=\"thumb-card\">\n            <a [routerLink]=\"['/post', post.id, post.slug]\"><img [src]=\"post.better_featured_image.source_url\" [alt]=\"post.title.rendered\"></a>\n        </div>\n        <div class=\"info-card\">\n            <div class=\"info-card_left\"></div>\n            <div class=\"info-card_right\"></div>\n            <div class=\"category-card\">\n                <post-category [postId]=\"post.id\"></post-category>\n            </div>\n        </div>\n        <div class=\"content-card\">\n            <div class=\"title-card\">\n                <a [routerLink]=\"['/post', post.id, post.slug]\">{{post.title.rendered}}</a>\n            </div>\n            <div class=\"desc-card\">\n                <span [innerHTML]=\"post.excerpt.rendered\"></span>\n                <div class=\"continue-reading\">\n                    <a [routerLink]=\"['/post', post.id, post.slug]\">CONTINUE READING</a>\n                </div>\n                <div class=\"bottom-card\">\n                    <div class=\"time\">\n                        {{post.date | date:\"dd/MM/yyyy\"}} by <a [routerLink]=\"['/home']\">Len</a>\n                    </div>\n                    <div class=\"share-card\">\n                        <a href=\"https://www.facebook.com/sharer/sharer.php?u={{post.link}}\"><i class=\"fa fa-facebook\" aria-hidden=\"true\"></i></a>\n                        <a href=\"https://plus.google.com/share?url={{post.link}}\"><i class=\"fa fa-google-plus\" aria-hidden=\"true\"></i></a>\n                        <a href=\"https://twitter.com/home?status={{post.link}}\"><i class=\"fa fa-twitter\" aria-hidden=\"true\"></i></a>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </template>\n</div>\n\n<div class=\"load-more\" *ngIf=\"postNum <= postsLength\">\n    <a (click)=\"postLoadMore()\">Load more</a>\n</div>"
 
 /***/ },
 /* 37 */
 /***/ function(module, exports) {
 
-module.exports = "    <div class=\"card\">\n        <div class=\"thumb-card\">\n            <a [routerLink]=\"['/post', id, slug]\"><img [src]=\"image\" [alt]=\"title\"></a>\n        </div>\n        <div class=\"info-card\">\n            <div class=\"info-card_left\"></div>\n            <div class=\"info-card_right\"></div>\n            <div class=\"category-card\">\n                <post-category [postId]=\"post.id\"></post-category>\n            </div>\n        </div>\n        <div class=\"content-card\">\n            <div class=\"title-card\">\n                <a [routerLink]=\"['/post', id, slug]\">{{title}}</a>\n            </div>\n            <div class=\"postcontent-card\">\n                <span [innerHTML]=\"content\"></span>\n                <div class=\"bottom-card\">\n                    <div class=\"time\">\n                        {{date | date:\"dd/MM/yyyy\"}} by <a [routerLink]=\"['/home']\">Len</a>\n                    </div>\n                    <div class=\"share-card\">\n                         <a href=\"https://www.facebook.com/sharer/sharer.php?u={{link}}\"><i class=\"fa fa-facebook\" aria-hidden=\"true\"></i></a>\n                        <a href=\"https://plus.google.com/share?url={{link}}\"><i class=\"fa fa-google-plus\" aria-hidden=\"true\"></i></a>\n                        <a href=\"https://twitter.com/home?status={{link}}\"><i class=\"fa fa-twitter\" aria-hidden=\"true\"></i></a>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <div class=\"disqus_comment\" id=\"disqus_thread\"></div>\n    </div>\n"
+module.exports = "<div class=\"card\" *ngFor=\"let post of posts; let i = index\">\n    <template [ngIf]=\"i < postNum\">\n        <div class=\"thumb-card\">\n            <a [routerLink]=\"['/post', post.id, post.slug]\"><img [src]=\"post.better_featured_image.source_url\" [alt]=\"post.title.rendered\"></a>\n        </div>\n        <div class=\"info-card\">\n            <div class=\"info-card_left\"></div>\n            <div class=\"info-card_right\"></div>\n            <div class=\"category-card\">\n                <post-category [postId]=\"post.id\"></post-category>\n            </div>\n        </div>\n        <div class=\"content-card\">\n            <div class=\"title-card\">\n                <a [routerLink]=\"['/post', post.id, post.slug]\">{{post.title.rendered}}</a>\n            </div>\n            <div class=\"desc-card\">\n                <span [innerHTML]=\"post.excerpt.rendered\"></span>\n                <div class=\"continue-reading\">\n                    <a [routerLink]=\"['/post', post.id, post.slug]\">CONTINUE READING</a>\n                </div>\n                <div class=\"bottom-card\">\n                    <div class=\"time\">\n                        {{post.date | date:\"dd/MM/yyyy\"}} by <a [routerLink]=\"['/home']\">Len</a>\n                    </div>\n                    <div class=\"share-card\">\n                        <a href=\"https://www.facebook.com/sharer/sharer.php?u={{post.link}}\"><i class=\"fa fa-facebook\" aria-hidden=\"true\"></i></a>\n                        <a href=\"https://plus.google.com/share?url={{post.link}}\"><i class=\"fa fa-google-plus\" aria-hidden=\"true\"></i></a>\n                        <a href=\"https://twitter.com/home?status={{post.link}}\"><i class=\"fa fa-twitter\" aria-hidden=\"true\"></i></a>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </template>\n</div>\n\n<div class=\"load-more\" *ngIf=\"postNum <= postsLength\">\n    <a (click)=\"postLoadMore()\">Load more</a>\n</div>"
 
 /***/ },
 /* 38 */
 /***/ function(module, exports) {
 
-module.exports = "<h1 class=\"tag-cloud\">#{{tagSlug}}</h1>\n<div class=\"card\" *ngFor=\"let post of posts; let i = index\">\n    <template [ngIf]=\"i < postNum\">\n        <div class=\"thumb-card\">\n            <a [routerLink]=\"['/post', post.id, post.slug]\"><img src=\"{{post.better_featured_image.source_url}}\" alt=\"{{post.title.rendered}}\"></a>\n        </div>\n        <div class=\"info-card\">\n            <div class=\"info-card_left\"></div>\n            <div class=\"info-card_right\"></div>\n            <div class=\"category-card\">\n                <post-category [postId]=\"post.id\"></post-category>\n            </div>\n        </div>\n        <div class=\"content-card\">\n            <div class=\"title-card\">\n                <a [routerLink]=\"['/post', post.id, post.slug]\">{{post.title.rendered}}</a>\n            </div>\n            <div class=\"desc-card\">\n                <span [innerHTML]=\"post.excerpt.rendered\"></span>\n                <div class=\"continue-reading\">\n                    <a [routerLink]=\"['/post', post.id, post.slug]\">CONTINUE READING</a>\n                </div>\n                <div class=\"bottom-card\">\n                    <div class=\"time\">\n                        {{post.date | date:\"dd/MM/yyyy\"}} by <a [routerLink]=\"['/home']\">Len</a>\n                    </div>\n                    <div class=\"share-card\">\n                        <a href=\"https://www.facebook.com/sharer/sharer.php?u={{post.link}}\"><i class=\"fa fa-facebook\" aria-hidden=\"true\"></i></a>\n                        <a href=\"https://plus.google.com/share?url={{post.link}}\"><i class=\"fa fa-google-plus\" aria-hidden=\"true\"></i></a>\n                        <a href=\"https://twitter.com/home?status={{post.link}}\"><i class=\"fa fa-twitter\" aria-hidden=\"true\"></i></a>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </template>\n</div>\n\n<div class=\"load-more\" *ngIf=\"postNum <= postsLength\">\n    <a (click)=\"postLoadMore()\">Load more</a>\n</div>"
+module.exports = "    <div class=\"card\">\n        <div class=\"thumb-card\">\n            <a [routerLink]=\"['/post', id, slug]\"><img [src]=\"image\" [alt]=\"title\"></a>\n        </div>\n        <div class=\"info-card\">\n            <div class=\"info-card_left\"></div>\n            <div class=\"info-card_right\"></div>\n            <div class=\"category-card\">\n                <post-category [postId]=\"id\"></post-category>\n            </div>\n        </div>\n        <div class=\"content-card\">\n            <div class=\"title-card\">\n                <a [routerLink]=\"['/post', id, slug]\">{{title}}</a>\n            </div>\n            <div class=\"postcontent-card\">\n                <span [innerHTML]=\"content\"></span>\n                <div class=\"bottom-card\">\n                    <div class=\"time\">\n                        {{date | date:\"dd/MM/yyyy\"}} by <a [routerLink]=\"['/home']\">Len</a>\n                    </div>\n                    <div class=\"share-card\">\n                         <a href=\"https://www.facebook.com/sharer/sharer.php?u={{link}}\"><i class=\"fa fa-facebook\" aria-hidden=\"true\"></i></a>\n                        <a href=\"https://plus.google.com/share?url={{link}}\"><i class=\"fa fa-google-plus\" aria-hidden=\"true\"></i></a>\n                        <a href=\"https://twitter.com/home?status={{link}}\"><i class=\"fa fa-twitter\" aria-hidden=\"true\"></i></a>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <div class=\"disqus_comment\" id=\"disqus_thread\"></div>\n    </div>\n"
 
 /***/ },
 /* 39 */
 /***/ function(module, exports) {
 
-module.exports = require("@angular/http");
+module.exports = "<h1 class=\"tag-cloud\">#{{tagSlug}}</h1>\n<div class=\"card\" *ngFor=\"let post of posts; let i = index\">\n    <template [ngIf]=\"i < postNum\">\n        <div class=\"thumb-card\">\n            <a [routerLink]=\"['/post', post.id, post.slug]\"><img src=\"{{post.better_featured_image.source_url}}\" alt=\"{{post.title.rendered}}\"></a>\n        </div>\n        <div class=\"info-card\">\n            <div class=\"info-card_left\"></div>\n            <div class=\"info-card_right\"></div>\n            <div class=\"category-card\">\n                <post-category [postId]=\"post.id\"></post-category>\n            </div>\n        </div>\n        <div class=\"content-card\">\n            <div class=\"title-card\">\n                <a [routerLink]=\"['/post', post.id, post.slug]\">{{post.title.rendered}}</a>\n            </div>\n            <div class=\"desc-card\">\n                <span [innerHTML]=\"post.excerpt.rendered\"></span>\n                <div class=\"continue-reading\">\n                    <a [routerLink]=\"['/post', post.id, post.slug]\">CONTINUE READING</a>\n                </div>\n                <div class=\"bottom-card\">\n                    <div class=\"time\">\n                        {{post.date | date:\"dd/MM/yyyy\"}} by <a [routerLink]=\"['/home']\">Len</a>\n                    </div>\n                    <div class=\"share-card\">\n                        <a href=\"https://www.facebook.com/sharer/sharer.php?u={{post.link}}\"><i class=\"fa fa-facebook\" aria-hidden=\"true\"></i></a>\n                        <a href=\"https://plus.google.com/share?url={{post.link}}\"><i class=\"fa fa-google-plus\" aria-hidden=\"true\"></i></a>\n                        <a href=\"https://twitter.com/home?status={{post.link}}\"><i class=\"fa fa-twitter\" aria-hidden=\"true\"></i></a>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </template>\n</div>\n\n<div class=\"load-more\" *ngIf=\"postNum <= postsLength\">\n    <a (click)=\"postLoadMore()\">Load more</a>\n</div>"
 
 /***/ },
 /* 40 */
 /***/ function(module, exports) {
 
-module.exports = require("@angular/platform-browser");
+module.exports = require("@angular/http");
 
 /***/ },
 /* 41 */
@@ -1494,22 +1504,22 @@ module.exports = require("rxjs/add/operator/share");
 // The only modules to be imported higher - node modules with es6-promise 3.x or other Promise polyfill dependency
 // (rule of thumb: do it if you have zone.js exception that it has been overwritten)
 // if you are including modules that modify Promise, such as NewRelic,, you must include them before polyfills
-__webpack_require__(16);
+__webpack_require__(17);
 // Fix Universal Style
-var node_1 = __webpack_require__(6);
+var node_1 = __webpack_require__(7);
 function renderComponentFix(componentProto) {
     return new node_1.NodeDomRenderer(this, componentProto, this._animationDriver);
 }
 node_1.NodeDomRootRenderer.prototype.renderComponent = renderComponentFix;
 // End Fix Universal Style
-var path = __webpack_require__(20);
-var express = __webpack_require__(19);
-var bodyParser = __webpack_require__(17);
-var cookieParser = __webpack_require__(18);
+var path = __webpack_require__(21);
+var express = __webpack_require__(20);
+var bodyParser = __webpack_require__(18);
+var cookieParser = __webpack_require__(19);
 // Angular 2 Universal
-var angular2_express_engine_1 = __webpack_require__(15);
+var angular2_express_engine_1 = __webpack_require__(16);
 // App
-var app_node_module_1 = __webpack_require__(13);
+var app_node_module_1 = __webpack_require__(14);
 // enable prod for faster renders
 //enableProdMode();
 var app = express();
@@ -1528,7 +1538,7 @@ app.use(bodyParser.json());
 // Serve static files
 app.use('/assets', express.static(path.join(__dirname, 'assets'), { maxAge: 30 }));
 app.use(express.static(path.join(ROOT, 'dist/client'), { index: false }));
-var api_1 = __webpack_require__(14);
+var api_1 = __webpack_require__(15);
 // Our API for demos only
 app.get('/data.json', api_1.serverApi);
 function ngApp(req, res) {

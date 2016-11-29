@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ModelService } from '../shared/api.service';
 import { Post } from '../model/post.model';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'category',
@@ -16,7 +17,8 @@ export class CategoryComponent {
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
-    public model: ModelService) {
+    public model: ModelService,
+    public title: Title) {
     this.universalInit();
   }
   scrollToMain() {
@@ -36,6 +38,8 @@ export class CategoryComponent {
       this.categorySlug = params['slug'];
       this.getData(this.categorySlug);
       this.scrollToMain()
+      this.title.getTitle();
+      this.title.setTitle(params['slug']+' | LEN vintage');
     });
   }
   getData(postSlug:string) {
@@ -43,6 +47,7 @@ export class CategoryComponent {
       this.model.get('http://admin.lenvintage.com/wp-json/wp/v2/posts/?filter[category_name]=' + postSlug + '&per_page=' + num).subscribe(data => {
         this.posts = data;
         this.postsLength = data.length;
+        
       });
   }
   postLoadMore() {

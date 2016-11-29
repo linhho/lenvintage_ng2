@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 
 import { ModelService } from '../shared/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Post } from '../model/post.model';
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -15,14 +16,17 @@ export class HomeComponent {
   postNum:number = 5;
   constructor(private _route: ActivatedRoute,
     private _router: Router,
-    public model: ModelService) {
+    public model: ModelService,
+    public title: Title) {
       this.scrollToMain();
       this.universalInit();
+      title.getTitle();
+      title.setTitle('Home | LEN vintage');
     }
   scrollToMain() {
     let ele = document.getElementById("main"); 
     setTimeout(function(){
-      var scrollStep = -window.scrollY / (ele.offsetTop / 15),
+      var scrollStep = -window.scrollY / (ele.offsetTop / 25),
       scrollInterval = setInterval(function(){
           if ( window.scrollY > 0 ) {
               window.scrollBy( 0, scrollStep );
@@ -38,6 +42,7 @@ export class HomeComponent {
         this.postsLength = data.length;
     });
   }
+
   postLoadMore() {
     this.postNum += 5;
     this.universalInit();

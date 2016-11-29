@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef, AfterViewInit, OnDestroy, Renderer, Chan
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ModelService } from '../shared/api.service';
 import { Post } from '../model/post.model';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'post',
@@ -23,7 +24,8 @@ export class PostComponent {
     private _router: Router,
     public model: ModelService,
     private el: ElementRef, 
-    private renderer: Renderer) {
+    private renderer: Renderer,
+    public titlePage: Title) {
       this.universalInit();
     }
     
@@ -51,8 +53,9 @@ export class PostComponent {
             this.date = data.date;
             this.content = data.content.rendered;
             this.link = data.link;
+            this.titlePage.setTitle(this.title + ' | LEN vintage');
             this.scrollToMain();
-            this.ngAfterViewInit();
+            this.resetDisqus();
         });
     });
   }
@@ -64,6 +67,17 @@ export class PostComponent {
     else {
       this.resetDisqus();
     }
+  }
+
+  /**
+   * Get disqus config
+   */
+  getConfig() {
+    let _self = this;
+    return function () {
+      this.page.url = this.link || window.location.href;
+      this.page.identifier = this.link || window.location.href;
+    };
   }
 
   /**
@@ -87,16 +101,5 @@ export class PostComponent {
     script.async = true;
     script.type = 'text/javascript';
     script.setAttribute('data-timestamp', new Date().getTime().toString());
-  }
-
-  /**
-   * Get disqus config
-   */
-  getConfig() {
-    let _self = this;
-    return function () {
-      this.page.url = this.link || window.location.href;
-      this.page.identifier = this.id+"/"+this.slug;
-    };
   }
 }
